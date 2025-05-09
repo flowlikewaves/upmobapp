@@ -47,28 +47,7 @@
                         Placeholder="Search Here" />
                 </StackLayout>
             </Border>
-
-            <Border
-                Margin="6,0"
-                Padding="0"
-                Background="{StaticResource Primary}"
-                HeightRequest="40"
-                HorizontalOptions="End"
-                StrokeShape="RoundRectangle 20"
-                StrokeThickness="0"
-                WidthRequest="40">
-                <Label
-                    FontFamily="MaterialIcon"
-                    FontSize="22"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    Text="&#xf100;"
-                    TextColor="White"
-                    VerticalOptions="CenterAndExpand" />
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenCameraCommand}" />
-                </Border.GestureRecognizers>
-            </Border>
+            
         </StackLayout>
         <Grid Grid.Row="1" VerticalOptions="CenterAndExpand">
             <Grid IsVisible="{Binding IsLoaded}">
