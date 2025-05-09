@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace EcommerceMAUI;
+namespace Mobappg4v2;
 
 public class Program
 {

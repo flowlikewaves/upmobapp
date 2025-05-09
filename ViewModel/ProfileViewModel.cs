@@ -1,14 +1,20 @@
-﻿using EcommerceMAUI.Model;
-using EcommerceMAUI.Views;
+﻿using Mobappg4v2.Model;
+using Mobappg4v2.Views;
 using System.Windows.Input;
+using Mobappg4v2.Helpers;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
     public class ProfileViewModel : BaseViewModel
     {        
-        public string Name { get; set; } = "David Spade";
-        public string Email { get; set; } = "iamdavid@gmail.com";
-        public string ImageUrl { get; set; } = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Avatar.png";
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+
+        public string ImageUrl { get; set; } = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
         private List<MenuItems> _MenuItems = [];
         public List<MenuItems> MenuItems
@@ -28,6 +34,7 @@ namespace EcommerceMAUI.ViewModel
         public ProfileViewModel()
         {
             SelectMenuCommand = new Command<MenuItems>(SelectMenu);
+            Email = UserSession.Email ?? "user@email.com";
             _ = InitializeAsync();
         }
         private async Task InitializeAsync()
@@ -44,7 +51,6 @@ namespace EcommerceMAUI.ViewModel
             MenuItems.Add(new MenuItems() { Title = "Wishlist", Body = "\uf2d5", TargetType = typeof(WishListView) });
             MenuItems.Add(new MenuItems() { Title = "Order History", Body = "\uf150", TargetType = typeof(OrderDetailsView) });
             MenuItems.Add(new MenuItems() { Title = "Track Order", Body = "\uf787", TargetType = typeof(OrderDetailsView) });
-            MenuItems.Add(new MenuItems() { Title = "Cards", Body = "\uf19b", TargetType = typeof(CardView) });
             //MenuItems.Add(new MenuItems() { Title = "Notifications", Body = "\uf09c"});
             MenuItems.Add(new MenuItems() { Title = "Logout", Body = "\uf343", TargetType = typeof(LoginView) });
             IsLoaded = true;

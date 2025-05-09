@@ -1,7 +1,7 @@
-﻿using EcommerceMAUI.ViewModel;
-using static EcommerceMAUI.Model.TrackOrderModel;
+﻿using Mobappg4v2.ViewModel;
+using static Mobappg4v2.Model.TrackOrderModel;
 
-namespace EcommerceMAUI.Model
+namespace Mobappg4v2.Model
 {
     public class TrackOrderModel : List<Track>
     {

@@ -1,8 +1,8 @@
-using EcommerceMAUI.Model;
-using EcommerceMAUI.ViewModel;
+using Mobappg4v2.Model;
+using Mobappg4v2.ViewModel;
 using System.Collections.ObjectModel;
 
-namespace EcommerceMAUI.Views;
+namespace Mobappg4v2.Views;
 
 public partial class CartCalculation : ContentPage
 {

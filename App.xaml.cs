@@ -1,6 +1,6 @@
-﻿using EcommerceMAUI.Views;
+﻿using Mobappg4v2.Views;
 
-namespace EcommerceMAUI;
+namespace Mobappg4v2;
 
 public partial class App : Application
 {

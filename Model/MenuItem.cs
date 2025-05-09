@@ -1,4 +1,4 @@
-﻿namespace EcommerceMAUI.Model
+﻿namespace Mobappg4v2.Model
 {
     public class MenuItems
     {

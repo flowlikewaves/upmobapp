@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="EcommerceMAUI.Views.RegisterView"
+    x:Class="Mobappg4v2.Views.RegisterView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="RegisterView">
+    xmlns:vm="clr-namespace:Mobappg4v2.ViewModel"
+    Title="Register">
+
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel />
+    </ContentPage.BindingContext>
+
     <ScrollView>
         <VerticalStackLayout Padding="18,82" Spacing="10">
             <StackLayout Orientation="Horizontal">
@@ -29,45 +35,24 @@
                 Text="Register to continue"
                 TextColor="{StaticResource SecondaryTextColor}"
                 VerticalOptions="Center" />
+
             <StackLayout Margin="0,50,0,0" Spacing="40">
                 <StackLayout Spacing="0">
-                    <Label
-                        FontSize="14"
-                        HorizontalOptions="Start"
-                        Text="Name"
-                        TextColor="{StaticResource SecondaryTextColor}"
-                        VerticalOptions="Center" />
-                    <Entry
-                        FontSize="18"
-                        Placeholder="Enter Name"
-                        Text="{Binding Name}" />
+                    <Label Text="Email" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
+                    <Entry FontSize="18" Placeholder="Enter Email" Text="{Binding Email}" />
                 </StackLayout>
+
                 <StackLayout Spacing="0">
-                    <Label
-                        FontSize="14"
-                        HorizontalOptions="Start"
-                        Text="Email"
-                        TextColor="{StaticResource SecondaryTextColor}"
-                        VerticalOptions="Center" />
-                    <Entry
-                        FontSize="18"
-                        Placeholder="Enter Email"
-                        Text="{Binding Email}" />
+                    <Label Text="Password" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
+                    <Entry FontSize="18" IsPassword="True" Placeholder="Enter Password" Text="{Binding Password}" />
                 </StackLayout>
-                <StackLayout Margin="0" Spacing="0">
-                    <Label
-                        FontSize="14"
-                        HorizontalOptions="Start"
-                        Text="Password"
-                        TextColor="{StaticResource SecondaryTextColor}"
-                        VerticalOptions="Center" />
-                    <Entry
-                        FontSize="18"
-                        IsPassword="True"
-                        Placeholder="Enter Password"
-                        Text="{Binding Password}" />
+
+                <StackLayout Spacing="0">
+                    <Label Text="Repeat Password" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
+                    <Entry FontSize="18" IsPassword="True" Placeholder="Repeat Password" Text="{Binding RepeatPassword}" />
                 </StackLayout>
             </StackLayout>
+
             <Button
                 Margin="0,60"
                 Padding="16"
@@ -76,7 +61,6 @@
                 CornerRadius="4"
                 Text="SIGN UP"
                 TextColor="{DynamicResource White}" />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

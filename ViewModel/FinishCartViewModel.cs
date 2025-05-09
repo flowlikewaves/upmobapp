@@ -1,9 +1,9 @@
-﻿using EcommerceMAUI.Helpers;
-using EcommerceMAUI.Model;
+﻿using Mobappg4v2.Helpers;
+using Mobappg4v2.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
     public class FinishCartViewModel : BaseViewModel
     {
@@ -36,13 +36,6 @@ namespace EcommerceMAUI.ViewModel
             set => SetProperty(ref _Products, value);
         }
 
-        private CardInfoModel _SelectedCard;
-        public CardInfoModel SelectedCard
-        {
-            get => _SelectedCard;
-            set => SetProperty(ref _SelectedCard, value);
-        }
-
         public string FullAddress
         {
             get
@@ -60,12 +53,11 @@ namespace EcommerceMAUI.ViewModel
         public ICommand FinishCommand { get; }
         public ICommand BackCommand { get; }
 
-        public FinishCartViewModel(ObservableCollection<ProductListModel> products, DeliveryTypeModel deliveryType, AddressModel address, CardInfoModel card)
+        public FinishCartViewModel(ObservableCollection<ProductListModel> products, DeliveryTypeModel deliveryType, AddressModel address)
         {
             DeliveryType = deliveryType;
             Products = products;
-            PrimaryAddress = address;
-            SelectedCard = card;          
+            PrimaryAddress = address;        
             FinishCommand = new Command(FinishOrder);
             BackCommand = new Command(GoBack);
             IsLoaded = true;

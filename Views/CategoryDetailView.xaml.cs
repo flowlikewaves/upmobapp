@@ -1,7 +1,7 @@
-using EcommerceMAUI.Model;
-using EcommerceMAUI.ViewModel;
+using Mobappg4v2.Model;
+using Mobappg4v2.ViewModel;
 
-namespace EcommerceMAUI.Views;
+namespace Mobappg4v2.Views;
 
 public partial class CategoryDetailView : ContentPage
 {

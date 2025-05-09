@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="EcommerceMAUI.Views.LoginView"
+    x:Class="Mobappg4v2.Views.LoginView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:vm="clr-namespace:EcommerceMAUI.ViewModel"
+    xmlns:vm="clr-namespace:Mobappg4v2.ViewModel"
     Title="Login">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
     <ScrollView>
         <VerticalStackLayout Padding="18,82" Spacing="10">
             <StackLayout Orientation="Horizontal">
@@ -31,34 +36,19 @@
                 Text="Sign in to Continue"
                 TextColor="{StaticResource SecondaryTextColor}"
                 VerticalOptions="Center" />
+
             <StackLayout Margin="0,50,0,0" Spacing="40">
                 <StackLayout Spacing="0">
-                    <Label
-                        FontSize="14"
-                        HorizontalOptions="Start"
-                        Text="Email"
-                        TextColor="{StaticResource SecondaryTextColor}"
-                        VerticalOptions="Center" />
-                    <Entry
-                        FontSize="18"
-                        Placeholder="Enter Email"
-                        Text="{Binding Email}" />
-                </StackLayout>
-                <StackLayout Margin="0" Spacing="0">
-                    <Label
-                        FontSize="14"
-                        HorizontalOptions="Start"
-                        Text="Password"
-                        TextColor="{StaticResource SecondaryTextColor}"
-                        VerticalOptions="Center" />
-                    <Entry
-                        FontSize="18"
-                        IsPassword="True"
-                        Placeholder="Enter Password"
-                        Text="{Binding Password}" />
+                    <Label Text="Email" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
+                    <Entry FontSize="18" Placeholder="Enter Email" Text="{Binding Email}" />
                 </StackLayout>
 
+                <StackLayout Spacing="0">
+                    <Label Text="Password" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
+                    <Entry FontSize="18" IsPassword="True" Placeholder="Enter Password" Text="{Binding Password}" />
+                </StackLayout>
             </StackLayout>
+
             <Button
                 Command="{Binding ForgotPasswordCommand}"
                 FontSize="14"
@@ -73,7 +63,6 @@
                 CornerRadius="4"
                 Text="SIGN IN"
                 TextColor="{DynamicResource White}" />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,11 +1,14 @@
-﻿using EcommerceMAUI.Helpers;
-using EcommerceMAUI.Views;
+﻿using Mobappg4v2.Helpers;
+using Mobappg4v2.Services;
+using Mobappg4v2.Views;
 using System.Windows.Input;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
-    public class LoginViewModel: BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
+        private readonly FirebaseAuthService _authService;
+
         private string _Email;
         public string Email
         {
@@ -21,44 +24,46 @@ namespace EcommerceMAUI.ViewModel
         }
 
         public ICommand LoginCommand { get; }
-        public ICommand LoginFacebookCommand { get; }
-        public ICommand LoginGoogleCommand { get; }
         public ICommand RegisterCommand { get; }
         public ICommand ForgotPasswordCommand { get; }
+
         public LoginViewModel()
         {
-            LoginCommand = new Command(Login);
-            LoginFacebookCommand = new Command(LoginWithFacebook);
-            LoginGoogleCommand = new Command(LoginWithGoogle);
+            _authService = new FirebaseAuthService();
+
+            LoginCommand = new Command(async () => await Login());
             RegisterCommand = new Command(SignUp);
             ForgotPasswordCommand = new Command(ForgotPassword);
         }
 
-        private void LoginWithGoogle()
-        {
-           
-        }
-
-        private void LoginWithFacebook()
-        {
-           
-        }
-
         private void ForgotPassword()
         {
-           
+            // TODO: Navigate to ForgotPasswordView or show popup
         }
 
         private async void SignUp()
         {
-           await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterView());
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterView());
         }
 
-        private async void Login()
-        {           
-            Application.Current.MainPage = new AppShell();
-            await ToastHelper.ShowToast("Welcome");
+        private async Task Login()
+        {
+            try
+            {
+                var auth = await _authService.SignIn(Email, Password);
+                string token = await _authService.GetFreshToken(auth);
 
+                // Store email in session
+                UserSession.Email = auth.User.Email;
+
+                await ToastHelper.ShowToast($"Welcome {auth.User.Email}");
+
+                Application.Current.MainPage = new AppShell();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
+            }
         }
     }
 }

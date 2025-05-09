@@ -1,10 +1,10 @@
 ﻿using Camera.MAUI.ZXingHelper;
-using EcommerceMAUI.Model;
-using EcommerceMAUI.Views;
+using Mobappg4v2.Model;
+using Mobappg4v2.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
     public class HomePageViewModel : BaseViewModel
     {

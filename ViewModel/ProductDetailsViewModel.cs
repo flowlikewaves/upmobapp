@@ -1,7 +1,7 @@
-﻿using EcommerceMAUI.Model;
+﻿using Mobappg4v2.Model;
 using System.Windows.Input;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
     public class ProductDetailsViewModel : BaseViewModel
     {

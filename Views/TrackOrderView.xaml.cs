@@ -1,7 +1,7 @@
-using EcommerceMAUI.ViewModel;
-using static EcommerceMAUI.Model.TrackOrderModel;
+using Mobappg4v2.ViewModel;
+using static Mobappg4v2.Model.TrackOrderModel;
 
-namespace EcommerceMAUI.Views;
+namespace Mobappg4v2.Views;
 
 public partial class TrackOrderView : ContentPage
 {

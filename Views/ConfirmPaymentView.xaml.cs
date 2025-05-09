@@ -1,14 +1,13 @@
-using EcommerceMAUI.Model;
-using EcommerceMAUI.ViewModel;
+using Mobappg4v2.Model;
+using Mobappg4v2.ViewModel;
 using System.Collections.ObjectModel;
 
-namespace EcommerceMAUI.Views;
+namespace Mobappg4v2.Views;
 
 public partial class ConfirmPaymentView : ContentPage
 {
 	public ConfirmPaymentView(ObservableCollection<ProductListModel> products, DeliveryTypeModel deliveryType, AddressModel address)
 	{
 		InitializeComponent();
-        BindingContext = new ConfirmPaymentViewModel(products, deliveryType, address);
     }
 }

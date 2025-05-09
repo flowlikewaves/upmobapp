@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace EcommerceMAUI.Converters
+namespace Mobappg4v2.Converters
 {
     public class InverseBooleanConverter : IValueConverter
     {

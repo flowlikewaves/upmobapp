@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace EcommerceMAUI;
+namespace Mobappg4v2;
 
 [Application]
 public class MainApplication : MauiApplication

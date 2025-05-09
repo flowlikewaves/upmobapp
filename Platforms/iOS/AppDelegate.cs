@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace EcommerceMAUI;
+namespace Mobappg4v2;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

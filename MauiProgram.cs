@@ -1,8 +1,9 @@
 ﻿
 using Camera.MAUI;
 using CommunityToolkit.Maui;
+using Mobappg4v2;
 
-namespace EcommerceMAUI;
+namespace Mobappg4v2;
 
 public static class MauiProgram
 {

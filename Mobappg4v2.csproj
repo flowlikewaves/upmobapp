@@ -6,17 +6,17 @@
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
-		<RootNamespace>EcommerceMAUI</RootNamespace>
+		<RootNamespace>Mobappg4v2</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>EcommerceMAUI</ApplicationTitle>
+		<ApplicationTitle>Mobappg4v2</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.ecommercemaui</ApplicationId>
+		<ApplicationId>com.companyname.mobappg4v2</ApplicationId>
 		<ApplicationIdGuid>08E8D34A-0937-4149-A280-A7B524BC7913</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -93,12 +93,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\CreditCardView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\AddNewCardView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\AllProductView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -121,9 +115,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ScanCameraView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\CardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CartView.xaml">
@@ -156,9 +147,6 @@
 	  <MauiXaml Update="Views\TrackOrderView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\VerificationView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\WishListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -168,10 +156,15 @@
 	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.80" />
 	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.80" />
 	  <PackageReference Include="CommunityToolkit.Maui" Version="9.0.2" />
+	  <PackageReference Include="Firebase.Auth" Version="1.0.0" />
 	  <PackageReference Include="PINView.MAUI" Version="1.0.2" />
 	  <PackageReference Include="Camera.MAUI" Version="1.5.1" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Controls\" />
+	</ItemGroup>
 	
-	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionEcommerceMAUIHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionMobappg4v2HideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

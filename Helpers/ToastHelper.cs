@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 
-namespace EcommerceMAUI.Helpers
+namespace Mobappg4v2.Helpers
 {
     public static class ToastHelper
     {

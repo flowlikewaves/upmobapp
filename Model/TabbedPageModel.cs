@@ -1,7 +1,7 @@
 ﻿
-using EcommerceMAUI.ViewModel;
+using Mobappg4v2.ViewModel;
 
-namespace EcommerceMAUI.Model
+namespace Mobappg4v2.Model
 {
     public class TabPageModel : BaseViewModel
     {

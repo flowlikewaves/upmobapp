@@ -1,4 +1,4 @@
-namespace EcommerceMAUI.Views;
+namespace Mobappg4v2.Views;
 
 public partial class ScanCameraView : ContentPage
 {

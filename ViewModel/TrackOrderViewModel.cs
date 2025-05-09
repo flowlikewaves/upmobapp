@@ -1,9 +1,9 @@
-﻿using EcommerceMAUI.Model;
+﻿using Mobappg4v2.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using static EcommerceMAUI.Model.TrackOrderModel;
+using static Mobappg4v2.Model.TrackOrderModel;
 
-namespace EcommerceMAUI.ViewModel
+namespace Mobappg4v2.ViewModel
 {
     public class TrackOrderViewModel : BaseViewModel
     {

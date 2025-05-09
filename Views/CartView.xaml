@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="EcommerceMAUI.Views.CartView"
+    x:Class="Mobappg4v2.Views.CartView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:EcommerceMAUI.Converters"
+    xmlns:converters="clr-namespace:Mobappg4v2.Converters"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:vm="clr-namespace:EcommerceMAUI.ViewModel"
+    xmlns:vm="clr-namespace:Mobappg4v2.ViewModel"
     x:Name="CartPage"
     Title="My Cart">
     <ContentPage.Resources>
