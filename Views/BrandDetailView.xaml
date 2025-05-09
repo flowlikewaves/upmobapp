@@ -14,13 +14,12 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
             <StackLayout IsVisible="{Binding IsLoaded}" Spacing="0">
                 <CollectionView Background="{StaticResource Primary}" ItemsSource="{Binding TabPages}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout HorizontalItemSpacing="6" Orientation="Horizontal" />
                     </CollectionView.ItemsLayout>
-
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="6,0,0,12">
@@ -35,10 +34,10 @@
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
                                     <Border
-                                        Background="White"
+                                        Background="{StaticResource AccentGreen}"
                                         HeightRequest="4"
                                         IsVisible="{Binding IsSelected}"
-                                        Stroke="white"
+                                        Stroke="{StaticResource AccentGreen}"
                                         StrokeShape="RoundRectangle 0" />
                                 </StackLayout>
                                 <Grid.GestureRecognizers>
@@ -49,39 +48,29 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView
-                    Margin="12"
+                    Margin="16,12"
                     ItemsSource="{Binding Products}"
                     VerticalOptions="FillAndExpand">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
-                            HorizontalItemSpacing="12"
+                            HorizontalItemSpacing="16"
                             Orientation="Vertical"
                             Span="2"
-                            VerticalItemSpacing="12" />
+                            VerticalItemSpacing="16" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout
-                                Margin="0"
-                                Background="White"
-                                HorizontalOptions="FillAndExpand">
-                                <Border
-                                    Background="transparent"
-                                    StrokeShape="RoundRectangle 6,0,0,6"
-                                    StrokeThickness="1">
+                            <Frame Style="{StaticResource CardFrameStyle}" Margin="0">
+                                <StackLayout HorizontalOptions="FillAndExpand">
                                     <Image
                                         Aspect="AspectFit"
-                                        HeightRequest="240"
-                                        Source="{Binding ImageUrl}"
-                                        WidthRequest="165" />
-                                </Border>
-                                <StackLayout Margin="0,8,0,0">
+                                        HeightRequest="180"
+                                        WidthRequest="140"
+                                        Source="{Binding ImageUrl}" />
                                     <Label
-                                        FontSize="16"
+                                        Style="{StaticResource HeaderLabelStyle}"
                                         HorizontalOptions="Center"
-                                        Text="{Binding Name}"
-                                        TextColor="Black"
-                                        VerticalOptions="Start" />
+                                        Text="{Binding Name}" />
                                     <Label
                                         FontSize="12"
                                         HorizontalOptions="Center"
@@ -92,13 +81,12 @@
                                         FontSize="16"
                                         HorizontalOptions="Center"
                                         Text="{Binding Price, StringFormat='${0:F2}'}"
-                                        TextColor="{StaticResource Primary}"
-                                        VerticalOptions="Start" />
+                                        TextColor="{StaticResource Primary}" />
                                 </StackLayout>
-                                <StackLayout.GestureRecognizers>
+                                <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference BrandDetailPage}, Path=BindingContext.SelectProductCommand}" CommandParameter="{Binding .}" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
+                                </Frame.GestureRecognizers>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

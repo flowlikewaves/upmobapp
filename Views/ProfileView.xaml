@@ -12,7 +12,7 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid>
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <Grid
             Margin="15,12"
             RowDefinitions="Auto,*"
@@ -33,22 +33,18 @@
                         Source="{Binding ImageUrl}"
                         WidthRequest="120" />
                 </Border>
-
                 <StackLayout Margin="20" VerticalOptions="CenterAndExpand">
                     <Label
-                        FontAttributes="Bold"
+                        Style="{StaticResource HeaderLabelStyle}"
                         FontSize="28"
                         HorizontalOptions="CenterAndExpand"
-                        Text="{Binding Email}"
-                        TextColor="Black"
-                        VerticalTextAlignment="Center" />
+                        Text="{Binding Email}" />
                 </StackLayout>
             </StackLayout>
             <CollectionView
                 Grid.Row="1"
                 IsVisible="{Binding IsLoaded}"
                 ItemsSource="{Binding MenuItems}">
-
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout
                         HorizontalItemSpacing="12"
@@ -56,61 +52,57 @@
                         Span="1"
                         VerticalItemSpacing="12" />
                 </CollectionView.ItemsLayout>
-
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="40" />
-                            </Grid.ColumnDefinitions>
-                            <Border
-                                Grid.Column="0"
-                                HeightRequest="40"
-                                StrokeShape="RoundRectangle 6"
-                                StrokeThickness="0"
-                                WidthRequest="36">
-                                <Border.Background>
-                                    <LinearGradientBrush EndPoint="0,1">
-                                        <GradientStop Offset="0.1" Color="LightGreen" />
-                                        <GradientStop Offset="1.0" Color="LightGray" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
+                        <Frame Style="{StaticResource CardFrameStyle}" Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Grid.Column="0"
+                                    HeightRequest="40"
+                                    StrokeShape="RoundRectangle 6"
+                                    StrokeThickness="0"
+                                    WidthRequest="36">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Offset="0.1" Color="LightGreen" />
+                                            <GradientStop Offset="1.0" Color="LightGray" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Label
+                                        FontFamily="MaterialIcon"
+                                        FontSize="22"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Body}"
+                                        TextColor="{StaticResource Black}"
+                                        VerticalOptions="Center" />
+                                </Border>
                                 <Label
+                                    Grid.Column="1"
+                                    Margin="18,0"
+                                    Style="{StaticResource HeaderLabelStyle}"
+                                    FontSize="16"
+                                    HorizontalOptions="Start"
+                                    Text="{Binding Title}" />
+                                <Label
+                                    Grid.Column="2"
+                                    FontAttributes="Bold"
                                     FontFamily="MaterialIcon"
-                                    FontSize="22"
-                                    HorizontalOptions="Center"
-                                    Text="{Binding Body}"
-                                    TextColor="Black"
-                                    VerticalOptions="Center" />
-                            </Border>
-
-                            <Label
-                                Grid.Column="1"
-                                Margin="18,0"
-                                FontAttributes="Bold"
-                                FontSize="16"
-                                HorizontalOptions="Start"
-                                Text="{Binding Title}"
-                                TextColor="Black"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-
-                            <Label
-                                Grid.Column="2"
-                                FontAttributes="Bold"
-                                FontFamily="MaterialIcon"
-                                FontSize="16"
-                                HorizontalOptions="End"
-                                HorizontalTextAlignment="Center"
-                                Text="&#xf142;"
-                                TextColor="Black"
-                                VerticalOptions="CenterAndExpand" />
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference ProfilePage}, Path=BindingContext.SelectMenuCommand}" CommandParameter="{Binding .}" />
-                            </Grid.GestureRecognizers>
-                        </Grid>
+                                    FontSize="16"
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="Center"
+                                    Text="&#xf142;"
+                                    TextColor="{StaticResource Black}"
+                                    VerticalOptions="CenterAndExpand" />
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference ProfilePage}, Path=BindingContext.SelectMenuCommand}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -123,5 +115,4 @@
             WidthRequest="45"
             Color="{StaticResource Primary}" />
     </Grid>
-
 </ContentPage>

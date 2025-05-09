@@ -11,40 +11,41 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid Margin="16">
+    <Grid Margin="0" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <CollectionView IsVisible="{Binding IsLoaded}" ItemsSource="{Binding Addressess}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="32" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Spacing="10">
-                        <Label
-                            FontAttributes="Bold"
-                            FontSize="18"
-                            Text="{Binding AddressType}"
-                            TextColor="Black" />
-                        <Grid ColumnDefinitions="*,18,24">
+                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0">
+                        <StackLayout Spacing="10">
                             <Label
-                                Grid.Column="0"
-                                FontSize="14"
-                                HorizontalOptions="Start"
-                                Text="{Binding FullAddress}"
-                                TextColor="Black" />
-                            <Label
-                                Grid.Column="2"
-                                FontFamily="MaterialIcon"
-                                FontSize="24"
-                                HorizontalOptions="Center"
-                                IsVisible="{Binding IsSelected}"
-                                Text="&#xf133;"
-                                TextColor="{DynamicResource Primary}"
-                                VerticalOptions="Center" />
-                        </Grid>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:Reference AddressPage}, Path=BindingContext.SelectAddressCommand}" CommandParameter="{Binding .}" />
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                                Style="{StaticResource HeaderLabelStyle}"
+                                FontSize="18"
+                                Text="{Binding AddressType}" />
+                            <Grid ColumnDefinitions="*,18,24">
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="14"
+                                    HorizontalOptions="Start"
+                                    Text="{Binding FullAddress}"
+                                    TextColor="{StaticResource Black}" />
+                                <Label
+                                    Grid.Column="2"
+                                    FontFamily="MaterialIcon"
+                                    FontSize="24"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsSelected}"
+                                    Text="&#xf133;"
+                                    TextColor="{StaticResource Primary}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference AddressPage}, Path=BindingContext.SelectAddressCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

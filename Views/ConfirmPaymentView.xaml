@@ -15,8 +15,18 @@
             <Setter Property="TextColor" Value="#FFFFFF" />
             <Setter Property="HorizontalOptions" Value="EndAndExpand" />
         </Style>
+        <Style x:Key="CardFrameStyle" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+        </Style>
+        <Style x:Key="HeaderLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{StaticResource Black}" />
+        </Style>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="*,Auto" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <ScrollView>
             <StackLayout Margin="16">
                 <Grid Margin="8,42" RowDefinitions="Auto,12,Auto">
@@ -40,7 +50,6 @@
                                 StrokeThickness="1"
                                 WidthRequest="16" />
                         </Border>
-
                         <Border
                             Grid.Column="2"
                             Background="{StaticResource Primary}"
@@ -50,7 +59,6 @@
                             StrokeShape="RoundRectangle 16"
                             StrokeThickness="1"
                             VerticalOptions="CenterAndExpand" />
-
                         <Border
                             Grid.Column="3"
                             Padding="4"
@@ -70,7 +78,6 @@
                                 StrokeThickness="1"
                                 WidthRequest="16" />
                         </Border>
-
                         <Border
                             Grid.Column="4"
                             Background="{StaticResource Primary}"
@@ -80,7 +87,6 @@
                             StrokeShape="RoundRectangle 16"
                             StrokeThickness="1"
                             VerticalOptions="CenterAndExpand" />
-
                         <Border
                             Grid.Column="5"
                             Padding="4"
@@ -100,98 +106,86 @@
                                 StrokeThickness="1"
                                 WidthRequest="16" />
                         </Border>
-
                     </Grid>
-
                     <Grid
                         Grid.Row="2"
                         ColumnDefinitions="Auto,*,Auto,*,Auto"
                         HorizontalOptions="FillAndExpand">
                         <Label
                             Grid.Column="0"
+                            Style="{StaticResource HeaderLabelStyle}"
                             FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Delivery"
-                            TextColor="Black" />
-
+                            Text="Delivery" />
                         <Label
                             Grid.Column="2"
+                            Style="{StaticResource HeaderLabelStyle}"
                             FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Address"
-                            TextColor="Black" />
-
+                            Text="Address" />
                         <Label
                             Grid.Column="4"
+                            Style="{StaticResource HeaderLabelStyle}"
                             FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Payments"
-                            TextColor="Black" />
-
+                            Text="Payments" />
                     </Grid>
                 </Grid>
-
-                <StackLayout
-                    BindableLayout.ItemsSource="{Binding Cards}"
-                    IsVisible="{Binding IsLoaded}"
-                    Spacing="12">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
-                                Spacing="16">
-                                <Grid
-                                    Padding="0,12"
-                                    ColumnDefinitions="Auto,12,*,12,Auto"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Border
-                                        Grid.Column="0"
-                                        Padding="0"
-                                        Background="{Binding CardColor}"
-                                        Stroke="{Binding CardColor}"
-                                        StrokeShape="RoundRectangle 4">
+                <Frame Style="{StaticResource CardFrameStyle}" Margin="0,24,0,0">
+                    <StackLayout
+                        BindableLayout.ItemsSource="{Binding Cards}"
+                        IsVisible="{Binding IsLoaded}"
+                        Spacing="12">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    Spacing="16">
+                                    <Grid
+                                        Padding="0,12"
+                                        ColumnDefinitions="Auto,12,*,12,Auto"
+                                        HorizontalOptions="FillAndExpand">
+                                        <Border
+                                            Grid.Column="0"
+                                            Padding="0"
+                                            Background="{Binding CardColor}"
+                                            Stroke="{Binding CardColor}"
+                                            StrokeShape="RoundRectangle 4">
+                                            <Label
+                                                FontFamily="{Binding FontFamily}"
+                                                Style="{StaticResource CreditCardImageLabelStyle}"
+                                                Text="{Binding Icon}" />
+                                        </Border>
+                                        <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                Text="{Binding MaskedCardNumber}"
+                                                TextColor="{StaticResource Black}" />
+                                            <Label
+                                                FontSize="14"
+                                                HorizontalOptions="FillAndExpand"
+                                                Text="{Binding CardType}"
+                                                VerticalOptions="Center" />
+                                        </StackLayout>
                                         <Label
-                                            FontFamily="{Binding FontFamily}"
-                                            Style="{StaticResource CreditCardImageLabelStyle}"
-                                            Text="{Binding Icon}" />
-                                    </Border>
-                                    <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            FontSize="16"
-                                            Text="{Binding MaskedCardNumber}"
-                                            TextColor="Black" />
-
-                                        <Label
-                                            FontSize="14"
-                                            HorizontalOptions="FillAndExpand"
-                                            Text="{Binding CardType}"
+                                            Grid.Column="4"
+                                            FontFamily="MaterialIcon"
+                                            FontSize="24"
+                                            HorizontalOptions="EndAndExpand"
+                                            IsVisible="{Binding IsSelected}"
+                                            Text="&#xf133;"
+                                            TextColor="{StaticResource Primary}"
                                             VerticalOptions="Center" />
-                                    </StackLayout>
-
-                                    <Label
-                                        Grid.Column="4"
-                                        FontFamily="MaterialIcon"
-                                        FontSize="24"
-                                        HorizontalOptions="EndAndExpand"
-                                        IsVisible="{Binding IsSelected}"
-                                        Text="&#xf133;"
-                                        TextColor="{DynamicResource Primary}"
-                                        VerticalOptions="Center" />
-
-                                </Grid>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference ConfirmPaymentPage}, Path=BindingContext.SelectPaymentCommand}" CommandParameter="{Binding .}" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference ConfirmPaymentPage}, Path=BindingContext.SelectPaymentCommand}" CommandParameter="{Binding .}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
-
         </ScrollView>
-
         <ActivityIndicator
             HeightRequest="45"
             HorizontalOptions="Center"
@@ -222,7 +216,6 @@
                 IsVisible="{Binding IsLoaded}"
                 Text="NEXT"
                 TextColor="{DynamicResource White}" />
-
         </Grid>
     </Grid>
 </ContentPage>

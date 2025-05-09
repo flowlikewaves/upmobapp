@@ -10,7 +10,7 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="*,Auto" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <ScrollView>
             <StackLayout>
                 <StackLayout
@@ -19,35 +19,36 @@
                     Spacing="12">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Orientation="Horizontal" Spacing="16">
-                                <Image
-                                    Aspect="AspectFit"
-                                    HeightRequest="100"
-                                    Source="{Binding ImageUrl}"
-                                    WidthRequest="120" />
-                                <StackLayout Spacing="6">
-                                    <Label
-                                        FontSize="16"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{Binding Name}"
-                                        TextColor="Black" />
-                                    <Grid ColumnDefinitions="Auto,16,Auto">
+                            <Frame Style="{StaticResource CardFrameStyle}" Margin="0">
+                                <StackLayout Orientation="Horizontal" Spacing="16">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="100"
+                                        Source="{Binding ImageUrl}"
+                                        WidthRequest="120" />
+                                    <StackLayout Spacing="6">
                                         <Label
-                                            Grid.Column="0"
-                                            FontAttributes="Bold"
-                                            FontSize="16"
+                                            Style="{StaticResource HeaderLabelStyle}"
                                             HorizontalOptions="StartAndExpand"
-                                            Text="{Binding Qty, StringFormat='QTY: {0}'}"
-                                            TextColor="Black" />
-                                        <Label
-                                            Grid.Column="2"
-                                            FontSize="16"
-                                            HorizontalOptions="StartAndExpand"
-                                            Text="{Binding Price, StringFormat='${0:F2}'}"
-                                            TextColor="{StaticResource Primary}" />
-                                    </Grid>
+                                            Text="{Binding Name}" />
+                                        <Grid ColumnDefinitions="Auto,16,Auto">
+                                            <Label
+                                                Grid.Column="0"
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                HorizontalOptions="StartAndExpand"
+                                                Text="{Binding Qty, StringFormat='QTY: {0}'}"
+                                                TextColor="{StaticResource Black}" />
+                                            <Label
+                                                Grid.Column="2"
+                                                FontSize="16"
+                                                HorizontalOptions="StartAndExpand"
+                                                Text="{Binding Price, StringFormat='${0:F2}'}"
+                                                TextColor="{StaticResource Primary}" />
+                                        </Grid>
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
+                            </Frame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
@@ -56,16 +57,13 @@
                     HeightRequest="1"
                     HorizontalOptions="FillAndExpand"
                     Color="{StaticResource GrayLine}" />
-
                 <Grid ColumnDefinitions="16,Auto,*,Auto,16" RowDefinitions="Auto,16,Auto">
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"
-                        FontAttributes="Bold"
+                        Style="{StaticResource HeaderLabelStyle}"
                         FontSize="16"
-                        HorizontalOptions="StartAndExpand"
-                        Text="Sub Total"
-                        TextColor="Black" />
+                        Text="Sub Total" />
                     <Path
                         Grid.Row="0"
                         Grid.Column="2"
@@ -76,16 +74,12 @@
                         StrokeDashArray="2,2"
                         StrokeThickness="1"
                         VerticalOptions="Center" />
-
                     <Label
                         Grid.Row="2"
                         Grid.Column="1"
-                        FontAttributes="Bold"
+                        Style="{StaticResource HeaderLabelStyle}"
                         FontSize="16"
-                        HorizontalOptions="StartAndExpand"
-                        Text="Tax"
-                        TextColor="Black" />
-
+                        Text="Tax" />
                     <Label
                         Grid.Row="0"
                         Grid.Column="3"
@@ -93,7 +87,7 @@
                         FontSize="18"
                         HorizontalOptions="EndAndExpand"
                         Text="$3950"
-                        TextColor="Black" />
+                        TextColor="{StaticResource Black}" />
                     <Label
                         Grid.Row="2"
                         Grid.Column="3"
@@ -101,8 +95,7 @@
                         FontSize="18"
                         HorizontalOptions="EndAndExpand"
                         Text="$50"
-                        TextColor="Black" />
-
+                        TextColor="{StaticResource Black}" />
                     <Path
                         Grid.Row="2"
                         Grid.Column="2"
@@ -113,20 +106,13 @@
                         StrokeDashArray="2,2"
                         StrokeThickness="1"
                         VerticalOptions="Center" />
-
                 </Grid>
                 <BoxView
                     Margin="0,16"
                     HeightRequest="1"
                     HorizontalOptions="FillAndExpand"
                     Color="{StaticResource GrayLine}" />
-
-                <Border
-                    Margin="16"
-                    Padding="0"
-                    Stroke="{StaticResource GrayLine}"
-                    StrokeShape="RoundRectangle 4"
-                    StrokeThickness="1">
+                <Frame Style="{StaticResource CardFrameStyle}" Margin="16,0">
                     <Grid ColumnDefinitions="*,Auto">
                         <Entry
                             Margin="4"
@@ -134,40 +120,30 @@
                             Placeholder="Enter Voucher Code" />
                         <Button
                             Grid.Column="1"
-                            Padding="16,12"
-                            Background="Transparent"
+                            Style="{StaticResource AccentButtonStyle}"
                             Command="{Binding ApplyVoucherCommand}"
-                            CornerRadius="4"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            Text="APPLY"
-                            TextColor="Black" />
+                            Text="APPLY" />
                     </Grid>
-                </Border>
-
+                </Frame>
                 <Grid
                     Grid.Row="1"
                     Margin="16,42"
                     ColumnDefinitions="*,24,*">
                     <Button
                         Grid.Column="0"
-                        Padding="16"
-                        Background="Transparent"
-                        BorderColor="{DynamicResource Primary}"
+                        Style="{StaticResource AccentButtonStyle}"
+                        BackgroundColor="Transparent"
+                        BorderColor="{StaticResource Primary}"
                         Command="{Binding BackCommand}"
-                        CornerRadius="4"
                         IsVisible="{Binding IsLoaded}"
                         Text="BACK"
-                        TextColor="{DynamicResource Black}" />
+                        TextColor="{StaticResource Black}" />
                     <Button
                         Grid.Column="2"
-                        Padding="16"
-                        Background="{DynamicResource Primary}"
+                        Style="{StaticResource AccentButtonStyle}"
                         Command="{Binding CheckoutCommand}"
-                        CornerRadius="4"
                         IsVisible="{Binding IsLoaded}"
-                        Text="CHECKOUT"
-                        TextColor="{DynamicResource White}" />
+                        Text="CHECKOUT" />
                 </Grid>
             </StackLayout>
         </ScrollView>

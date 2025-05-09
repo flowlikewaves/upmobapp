@@ -11,7 +11,7 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="*,Auto" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <ScrollView>
             <Grid>
                 <StackLayout Margin="16">
@@ -105,10 +105,9 @@
                             HorizontalOptions="FillAndExpand">
                             <Label
                                 Grid.Column="0"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="14"
-                                HorizontalOptions="Center"
-                                Text="Delivery"
-                                TextColor="Black" />
+                                Text="Delivery" />
 
                             <Label
                                 Grid.Column="2"
@@ -126,42 +125,43 @@
 
                         </Grid>
                     </Grid>
-                    <StackLayout
-                        BindableLayout.ItemsSource="{Binding DeliveryTypes}"
-                        IsVisible="{Binding IsLoaded}"
-                        Spacing="32">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout Spacing="10">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="18"
-                                        Text="{Binding Name}"
-                                        TextColor="Black" />
-                                    <Grid ColumnDefinitions="*,18,24">
+                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0,24,0,0">
+                        <StackLayout
+                            BindableLayout.ItemsSource="{Binding DeliveryTypes}"
+                            IsVisible="{Binding IsLoaded}"
+                            Spacing="32">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="10">
                                         <Label
-                                            Grid.Column="0"
-                                            FontSize="14"
-                                            HorizontalOptions="Start"
-                                            Text="{Binding Description}"
-                                            TextColor="Black" />
-                                        <Label
-                                            Grid.Column="2"
-                                            FontFamily="MaterialIcon"
-                                            FontSize="24"
-                                            HorizontalOptions="Center"
-                                            IsVisible="{Binding IsSelected}"
-                                            Text="&#xf133;"
-                                            TextColor="{StaticResource Primary}"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference DeliveryTypePage}, Path=BindingContext.SelectDeliveryTypeCommand}" CommandParameter="{Binding .}" />
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
+                                            Style="{StaticResource HeaderLabelStyle}"
+                                            FontSize="18"
+                                            Text="{Binding Name}" />
+                                        <Grid ColumnDefinitions="*,18,24">
+                                            <Label
+                                                Grid.Column="0"
+                                                FontSize="14"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Description}"
+                                                TextColor="{StaticResource Black}" />
+                                            <Label
+                                                Grid.Column="2"
+                                                FontFamily="MaterialIcon"
+                                                FontSize="24"
+                                                HorizontalOptions="Center"
+                                                IsVisible="{Binding IsSelected}"
+                                                Text="&#xf133;"
+                                                TextColor="{StaticResource Primary}"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference DeliveryTypePage}, Path=BindingContext.SelectDeliveryTypeCommand}" CommandParameter="{Binding .}" />
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Frame>
                 </StackLayout>
 
 
@@ -180,23 +180,19 @@
             ColumnDefinitions="*,24,*">
             <Button
                 Grid.Column="0"
-                Padding="16"
-                Background="Transparent"
-                BorderColor="{DynamicResource Primary}"
+                Style="{StaticResource AccentButtonStyle}"
+                BackgroundColor="Transparent"
+                BorderColor="{StaticResource Primary}"
                 Command="{Binding BackCommand}"
-                CornerRadius="4"
                 IsVisible="{Binding IsLoaded}"
                 Text="BACK"
-                TextColor="{DynamicResource Black}" />
+                TextColor="{StaticResource Black}" />
             <Button
                 Grid.Column="2"
-                Padding="16"
-                Background="{DynamicResource Primary}"
+                Style="{StaticResource AccentButtonStyle}"
                 Command="{Binding NextCommand}"
-                CornerRadius="4"
                 IsVisible="{Binding IsLoaded}"
-                Text="NEXT"
-                TextColor="{DynamicResource White}" />
+                Text="NEXT" />
 
         </Grid>
     </Grid>

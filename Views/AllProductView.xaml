@@ -12,41 +12,31 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid>
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <CollectionView
-            Margin="12"
+            Margin="16,12"
             IsVisible="{Binding IsLoaded}"
             ItemsSource="{Binding Products}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
-                    HorizontalItemSpacing="12"
+                    HorizontalItemSpacing="16"
                     Orientation="Vertical"
                     Span="2"
-                    VerticalItemSpacing="12" />
+                    VerticalItemSpacing="16" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout
-                        Margin="0"
-                        Background="White"
-                        HorizontalOptions="FillAndExpand">
-                        <Border
-                            Background="transparent"
-                            StrokeShape="RoundRectangle 6,0,0,6"
-                            StrokeThickness="1">
+                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0">
+                        <StackLayout HorizontalOptions="FillAndExpand">
                             <Image
                                 Aspect="AspectFit"
-                                HeightRequest="240"
-                                Source="{Binding ImageUrl}"
-                                WidthRequest="165" />
-                        </Border>
-                        <StackLayout Margin="0,8,0,0">
+                                HeightRequest="180"
+                                WidthRequest="140"
+                                Source="{Binding ImageUrl}" />
                             <Label
-                                FontSize="16"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 HorizontalOptions="Center"
-                                Text="{Binding Name}"
-                                TextColor="Black"
-                                VerticalOptions="Start" />
+                                Text="{Binding Name}" />
                             <Label
                                 FontSize="12"
                                 HorizontalOptions="Center"
@@ -57,13 +47,12 @@
                                 FontSize="16"
                                 HorizontalOptions="Center"
                                 Text="{Binding Price, StringFormat='${0:F2}'}"
-                                TextColor="{StaticResource Primary}"
-                                VerticalOptions="Start" />
+                                TextColor="{StaticResource Primary}" />
                         </StackLayout>
-                        <StackLayout.GestureRecognizers>
+                        <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={x:Reference AllProductPage}, Path=BindingContext.SelectProductCommand}" CommandParameter="{Binding .}" />
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

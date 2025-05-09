@@ -10,7 +10,7 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="*,Auto" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <ScrollView>
             <Grid>
                 <StackLayout Margin="16">
@@ -104,17 +104,15 @@
                             HorizontalOptions="FillAndExpand">
                             <Label
                                 Grid.Column="0"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="14"
-                                HorizontalOptions="Center"
-                                Text="Delivery"
-                                TextColor="Black" />
+                                Text="Delivery" />
 
                             <Label
                                 Grid.Column="2"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="14"
-                                HorizontalOptions="Center"
-                                Text="Address"
-                                TextColor="Black" />
+                                Text="Address" />
 
                             <Label
                                 Grid.Column="4"
@@ -125,74 +123,76 @@
 
                         </Grid>
                     </Grid>
-                    <StackLayout IsVisible="{Binding IsLoaded}" Spacing="24">
-                        <StackLayout Orientation="Horizontal" Spacing="16">
-                            <Label
-                                FontFamily="MaterialIcon"
-                                FontSize="24"
-                                HorizontalOptions="Start"
-                                Text="&#xf133;"
-                                TextColor="{DynamicResource Primary}"
-                                VerticalOptions="Center" />
-                            <Label
-                                FontSize="14"
-                                HorizontalOptions="FillAndExpand"
-                                Text="{Binding DeliveryType.Description}"
-                                TextColor="Black"
-                                VerticalOptions="Center" />
-                        </StackLayout>
+                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0,24,0,0">
+                        <StackLayout IsVisible="{Binding IsLoaded}" Spacing="24">
+                            <StackLayout Orientation="Horizontal" Spacing="16">
+                                <Label
+                                    FontFamily="MaterialIcon"
+                                    FontSize="24"
+                                    HorizontalOptions="Start"
+                                    Text="&#xf133;"
+                                    TextColor="{StaticResource Primary}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{Binding DeliveryType.Description}"
+                                    TextColor="{StaticResource Black}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
 
-                        <StackLayout Spacing="0">
-                            <Label
-                                FontSize="14"
-                                HorizontalOptions="Start"
-                                Text="Street 1"
-                                TextColor="{StaticResource SecondaryTextColor}"
-                                VerticalOptions="Center" />
-                            <Entry
-                                FontSize="18"
-                                Placeholder="Enter Street 1"
-                                Text="{Binding PrimaryAddress.StreetOne}" />
-                        </StackLayout>
+                            <StackLayout Spacing="0">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Start"
+                                    Text="Street 1"
+                                    TextColor="{StaticResource SecondaryTextColor}"
+                                    VerticalOptions="Center" />
+                                <Entry
+                                    FontSize="18"
+                                    Placeholder="Enter Street 1"
+                                    Text="{Binding PrimaryAddress.StreetOne}" />
+                            </StackLayout>
 
-                        <StackLayout Spacing="0">
-                            <Label
-                                FontSize="14"
-                                HorizontalOptions="Start"
-                                Text="Street 2"
-                                TextColor="{StaticResource SecondaryTextColor}"
-                                VerticalOptions="Center" />
-                            <Entry
-                                FontSize="18"
-                                Placeholder="Enter Street 2"
-                                Text="{Binding PrimaryAddress.StreetTwo}" />
-                        </StackLayout>
+                            <StackLayout Spacing="0">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Start"
+                                    Text="Street 2"
+                                    TextColor="{StaticResource SecondaryTextColor}"
+                                    VerticalOptions="Center" />
+                                <Entry
+                                    FontSize="18"
+                                    Placeholder="Enter Street 2"
+                                    Text="{Binding PrimaryAddress.StreetTwo}" />
+                            </StackLayout>
 
-                        <StackLayout Spacing="0">
-                            <Label
-                                FontSize="14"
-                                HorizontalOptions="Start"
-                                Text="City"
-                                TextColor="{StaticResource SecondaryTextColor}"
-                                VerticalOptions="Center" />
-                            <Entry
-                                FontSize="18"
-                                Placeholder="Enter city"
-                                Text="{Binding PrimaryAddress.City}" />
+                            <StackLayout Spacing="0">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Start"
+                                    Text="City"
+                                    TextColor="{StaticResource SecondaryTextColor}"
+                                    VerticalOptions="Center" />
+                                <Entry
+                                    FontSize="18"
+                                    Placeholder="Enter city"
+                                    Text="{Binding PrimaryAddress.City}" />
+                            </StackLayout>
+                            <StackLayout Spacing="0">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Start"
+                                    Text="State"
+                                    TextColor="{StaticResource SecondaryTextColor}"
+                                    VerticalOptions="Center" />
+                                <Entry
+                                    FontSize="18"
+                                    Placeholder="Enter State"
+                                    Text="{Binding PrimaryAddress.State}" />
+                            </StackLayout>
                         </StackLayout>
-                        <StackLayout Spacing="0">
-                            <Label
-                                FontSize="14"
-                                HorizontalOptions="Start"
-                                Text="State"
-                                TextColor="{StaticResource SecondaryTextColor}"
-                                VerticalOptions="Center" />
-                            <Entry
-                                FontSize="18"
-                                Placeholder="Enter State"
-                                Text="{Binding PrimaryAddress.State}" />
-                        </StackLayout>
-                    </StackLayout>
+                    </Frame>
                 </StackLayout>
 
                 <ActivityIndicator
@@ -210,23 +210,19 @@
             ColumnDefinitions="*,24,*">
             <Button
                 Grid.Column="0"
-                Padding="16"
-                Background="Transparent"
-                BorderColor="{DynamicResource Primary}"
+                Style="{StaticResource AccentButtonStyle}"
+                BackgroundColor="Transparent"
+                BorderColor="{StaticResource Primary}"
                 Command="{Binding BackCommand}"
-                CornerRadius="4"
                 IsVisible="{Binding IsLoaded}"
                 Text="BACK"
-                TextColor="{DynamicResource Black}" />
+                TextColor="{StaticResource Black}" />
             <Button
                 Grid.Column="2"
-                Padding="16"
-                Background="{DynamicResource Primary}"
+                Style="{StaticResource AccentButtonStyle}"
                 Command="{Binding NextCommand}"
-                CornerRadius="4"
                 IsVisible="{Binding IsLoaded}"
-                Text="NEXT"
-                TextColor="{DynamicResource White}" />
+                Text="NEXT" />
 
         </Grid>
 

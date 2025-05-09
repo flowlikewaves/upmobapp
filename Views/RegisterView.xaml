@@ -11,56 +11,50 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout Padding="18,82" Spacing="10">
-            <StackLayout Orientation="Horizontal">
+        <VerticalStackLayout Padding="18,82" Spacing="18" BackgroundColor="{StaticResource MMPrimaryBackground}">
+            <StackLayout Orientation="Horizontal" Spacing="12">
                 <Label
-                    FontAttributes="Bold"
+                    Style="{StaticResource HeaderLabelStyle}"
                     FontSize="30"
                     HorizontalOptions="Center"
                     Text="Sign Up"
                     VerticalOptions="Center" />
-
                 <Button
                     Command="{Binding LoginCommand}"
-                    FontAttributes="Bold"
+                    Style="{StaticResource AccentButtonStyle}"
                     FontSize="18"
                     HorizontalOptions="EndAndExpand"
-                    Text="Login" />
+                    Text="Login"
+                    TextColor="{StaticResource MMHeaderBrown}" />
             </StackLayout>
-
             <Label
-                FontAttributes="Bold"
+                Style="{StaticResource HeaderLabelStyle}"
                 FontSize="14"
                 HorizontalOptions="Start"
                 Text="Register to continue"
-                TextColor="{StaticResource SecondaryTextColor}"
+                TextColor="{StaticResource MMHeaderBrown}"
                 VerticalOptions="Center" />
-
-            <StackLayout Margin="0,50,0,0" Spacing="40">
-                <StackLayout Spacing="0">
-                    <Label Text="Email" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
-                    <Entry FontSize="18" Placeholder="Enter Email" Text="{Binding Email}" />
+            <Frame Style="{StaticResource CardFrameStyle}" Margin="0,50,0,0">
+                <StackLayout Spacing="32">
+                    <StackLayout Spacing="0">
+                        <Label Text="Email" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="18" Placeholder="Enter Email" Text="{Binding Email}" />
+                    </StackLayout>
+                    <StackLayout Spacing="0">
+                        <Label Text="Password" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="18" IsPassword="True" Placeholder="Enter Password" Text="{Binding Password}" />
+                    </StackLayout>
+                    <StackLayout Spacing="0">
+                        <Label Text="Repeat Password" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="18" IsPassword="True" Placeholder="Repeat Password" Text="{Binding RepeatPassword}" />
+                    </StackLayout>
                 </StackLayout>
-
-                <StackLayout Spacing="0">
-                    <Label Text="Password" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
-                    <Entry FontSize="18" IsPassword="True" Placeholder="Enter Password" Text="{Binding Password}" />
-                </StackLayout>
-
-                <StackLayout Spacing="0">
-                    <Label Text="Repeat Password" FontSize="14" TextColor="{StaticResource SecondaryTextColor}" />
-                    <Entry FontSize="18" IsPassword="True" Placeholder="Repeat Password" Text="{Binding RepeatPassword}" />
-                </StackLayout>
-            </StackLayout>
-
+            </Frame>
             <Button
                 Margin="0,60"
-                Padding="16"
-                Background="{DynamicResource Primary}"
+                Style="{StaticResource AccentButtonStyle}"
                 Command="{Binding RegisterCommand}"
-                CornerRadius="4"
-                Text="SIGN UP"
-                TextColor="{DynamicResource White}" />
+                Text="SIGN UP" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -47,7 +47,6 @@ namespace Mobappg4v2.ViewModel
             RecommendedTapCommand = new Command<object>(SelectRecommend);
             CategoryTapCommand = new Command<CategoriesModel>(SelectCategory);
             BrandTapCommand = new Command<ProductListModel>(SelectBrand);
-            OpenCameraCommand = new Command(OpenCamera);
             _ = InitializeAsync();
         }
         private async Task InitializeAsync()
@@ -59,11 +58,11 @@ namespace Mobappg4v2.ViewModel
             // Delay added to display loading, remove during api call
             await Task.Delay(500);
             //TODO: Remove Delay here and call API
-            Categories.Add(new CategoriesModel() { CategoryID = 1, CategoryName = "Men", Icon = "\ufb22" });
-            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Women", Icon = "\ufb23" });
-            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Devices", Icon = "\uf322" });
-            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Gadgets", Icon = "\uf2cb" });
-            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Games", Icon = "\uf5ba" });
+            Categories.Add(new CategoriesModel() { CategoryID = 1, CategoryName = "Clothing", Icon = "\ufb22" });
+            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Textiles", Icon = "\ufb23" });
+            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Decor", Icon = "\uf322" });
+            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Accessories", Icon = "\uf2cb" });
+            Categories.Add(new CategoriesModel() { CategoryID = 2, CategoryName = "Crafts", Icon = "\uf5ba" });
 
             BestSellingProducts.Add(new ProductListModel() { Name = "BeoPlay Speaker", BrandName = "Bang and Olufsen", Price = 755, ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Image1.png" });
             BestSellingProducts.Add(new ProductListModel() { Name = "Leather Wristwatch", BrandName = "Tag Heuer", Price = 450, ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Image2.png" });
@@ -93,24 +92,6 @@ namespace Mobappg4v2.ViewModel
         private async void SelectRecommend(object product)
         {
             await Application.Current.MainPage.Navigation.PushAsync(new AllProductView());
-        }
-        private async void OpenCamera()
-        {
-            var response = await App.Current.MainPage.DisplayAlert("Scan QR", "Do you want to open camera?", "Yes", "No");
-            if (response)
-            {
-                PermissionStatus status = await Permissions.RequestAsync<Permissions.Camera>();
-                if (status == PermissionStatus.Granted)
-                {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new ScanCameraView());
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Permission Denied", "Camera access is required but not granted. Please enable camera permissions in your device settings.", "OK");
-
-                }
-
-            }
         }
 
         private void CameraViewBarcodeDetected(object sender, BarcodeEventArgs args)

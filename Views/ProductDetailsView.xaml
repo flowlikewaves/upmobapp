@@ -11,7 +11,7 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="*,Auto" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <Grid IsVisible="{Binding IsLoaded}">
             <ScrollView>
                 <StackLayout IsClippedToBounds="True">
@@ -21,24 +21,15 @@
                         Source="{Binding ProductDetail.ImageUrl}" />
                     <StackLayout Margin="16">
                         <Label
-                            FontAttributes="Bold"
+                            Style="{StaticResource HeaderLabelStyle}"
                             FontSize="26"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding ProductDetail.Name}"
-                            TextColor="Black"
-                            VerticalTextAlignment="Center" />
-
+                            Text="{Binding ProductDetail.Name}" />
                         <StackLayout
                             Margin="0,16"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">
-                            <Border
-                                Margin="6,0"
-                                Padding="0"
-                                Background="transparent"
-                                HorizontalOptions="FillAndExpand"
-                                StrokeShape="RoundRectangle 20"
-                                StrokeThickness="1">
+                            <Frame Style="{StaticResource CardFrameStyle}" Margin="6,0">
                                 <StackLayout
                                     HorizontalOptions="FillAndExpand"
                                     Orientation="Horizontal"
@@ -48,35 +39,26 @@
                                         FontSize="14"
                                         HorizontalOptions="StartAndExpand"
                                         Text="Size"
-                                        TextColor="Black"
+                                        TextColor="{StaticResource Black}"
                                         VerticalTextAlignment="Center" />
                                     <Label
                                         Margin="24,15"
                                         FontSize="14"
                                         HorizontalOptions="StartAndExpand"
                                         Text="XL"
-                                        TextColor="Black"
+                                        TextColor="{StaticResource Black}"
                                         VerticalTextAlignment="Center" />
-
                                 </StackLayout>
-                            </Border>
-
-                            <Border
-                                Margin="6,0"
-                                Padding="0"
-                                Background="transparent"
-                                HorizontalOptions="FillAndExpand"
-                                StrokeShape="RoundRectangle 20"
-                                StrokeThickness="1">
+                            </Frame>
+                            <Frame Style="{StaticResource CardFrameStyle}" Margin="6,0">
                                 <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
                                     <Label
                                         Margin="20,15"
                                         FontSize="14"
                                         HorizontalOptions="StartAndExpand"
                                         Text="Color"
-                                        TextColor="Black"
+                                        TextColor="{StaticResource Black}"
                                         VerticalTextAlignment="Center" />
-
                                     <Border
                                         Margin="10"
                                         Padding="0"
@@ -87,46 +69,34 @@
                                         StrokeThickness="1"
                                         WidthRequest="26" />
                                 </StackLayout>
-                            </Border>
-
+                            </Frame>
                         </StackLayout>
-
                         <StackLayout>
-
                             <Label
-                                FontAttributes="Bold"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="18"
                                 HorizontalOptions="StartAndExpand"
-                                Text="Details"
-                                TextColor="Black"
-                                VerticalTextAlignment="Center" />
-
+                                Text="Details" />
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="StartAndExpand"
                                 Text="{Binding ProductDetail.Details}"
-                                TextColor="Black"
+                                TextColor="{StaticResource Black}"
                                 VerticalTextAlignment="Center" />
-
                             <Label
                                 Margin="0,30,0,0"
-                                FontAttributes="Bold"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="18"
                                 HorizontalOptions="StartAndExpand"
-                                Text="Reviews"
-                                TextColor="Black"
-                                VerticalTextAlignment="Center" />
-
+                                Text="Reviews" />
                             <Label
                                 Margin="0,5,0,0"
-                                FontAttributes="Bold"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="14"
                                 HorizontalOptions="StartAndExpand"
                                 Text="Write your Review"
-                                TextColor="{StaticResource Primary}"
-                                VerticalTextAlignment="Center" />
+                                TextColor="{StaticResource Primary}" />
                         </StackLayout>
-
                         <CollectionView
                             Margin="0,16"
                             ItemSizingStrategy="MeasureAllItems"
@@ -136,42 +106,40 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid ColumnDefinitions="Auto,*">
-                                        <Border
-                                            Grid.Column="0"
-                                            Padding="0"
-                                            HeightRequest="46"
-                                            StrokeShape="RoundRectangle 23"
-                                            StrokeThickness="0"
-                                            WidthRequest="46">
-                                            <Image
-                                                Aspect="AspectFill"
+                                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0,0,0,8">
+                                        <Grid ColumnDefinitions="Auto,*">
+                                            <Border
+                                                Grid.Column="0"
+                                                Padding="0"
                                                 HeightRequest="46"
-                                                Source="{Binding ImageUrl}"
-                                                WidthRequest="46" />
-                                        </Border>
-
-                                        <Grid
-                                            Grid.Column="1"
-                                            Margin="8,0"
-                                            RowDefinitions="Auto,2,Auto">
-                                            <Label
-                                                Grid.Row="0"
-                                                FontAttributes="Bold"
-                                                FontSize="14"
-                                                Text="{Binding Name}"
-                                                TextColor="Black" />
-
-                                            <Label
-                                                Grid.Row="2"
-                                                FontSize="14"
-                                                LineBreakMode="WordWrap"
-                                                Text="{Binding Review}"
-                                                TextColor="Black"
-                                                VerticalTextAlignment="Center" />
+                                                StrokeShape="RoundRectangle 23"
+                                                StrokeThickness="0"
+                                                WidthRequest="46">
+                                                <Image
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="46"
+                                                    Source="{Binding ImageUrl}"
+                                                    WidthRequest="46" />
+                                            </Border>
+                                            <Grid
+                                                Grid.Column="1"
+                                                Margin="8,0"
+                                                RowDefinitions="Auto,2,Auto">
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Style="{StaticResource HeaderLabelStyle}"
+                                                    FontSize="14"
+                                                    Text="{Binding Name}" />
+                                                <Label
+                                                    Grid.Row="2"
+                                                    FontSize="14"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding Review}"
+                                                    TextColor="{StaticResource Black}"
+                                                    VerticalTextAlignment="Center" />
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-
+                                    </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>

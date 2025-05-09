@@ -13,7 +13,7 @@
             <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid Margin="8,12" RowDefinitions="Auto,*">
+    <Grid Margin="8,12" RowDefinitions="Auto,*" BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
         <StackLayout
             Grid.Row="0"
             Margin="0"
@@ -37,9 +37,8 @@
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Text="&#xf349;"
-                        TextColor="Black"
+                        TextColor="{StaticResource Primary}"
                         VerticalOptions="CenterAndExpand" />
-
                     <Entry
                         Margin="8,0"
                         FontSize="12"
@@ -47,7 +46,6 @@
                         Placeholder="Search Here" />
                 </StackLayout>
             </Border>
-            
         </StackLayout>
         <Grid Grid.Row="1" VerticalOptions="CenterAndExpand">
             <Grid IsVisible="{Binding IsLoaded}">
@@ -55,14 +53,9 @@
                     <StackLayout Spacing="0" VerticalOptions="Start">
                         <Label
                             Margin="0,12"
-                            FontAttributes="Bold"
+                            Style="{StaticResource HeaderLabelStyle}"
                             FontSize="16"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="Categories"
-                            TextColor="Black"
-                            VerticalOptions="EndAndExpand" />
-
+                            Text="Categories" />
                         <CollectionView
                             Margin="0,6"
                             ItemsSource="{Binding Categories}"
@@ -75,123 +68,87 @@
                                     Span="5"
                                     VerticalItemSpacing="0" />
                             </CollectionView.ItemsLayout>
-
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackLayout Spacing="0">
-                                        <Border
-                                            Margin="0,4"
-                                            Padding="12"
-                                            Background="White"
-                                            HeightRequest="60"
-                                            HorizontalOptions="Center"
-                                            Stroke="Gray"
-                                            StrokeShape="RoundRectangle 30"
-                                            VerticalOptions="Center"
-                                            WidthRequest="60">
+                                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0,4">
+                                        <StackLayout Spacing="0">
                                             <Label
                                                 FontFamily="MaterialIcon"
                                                 FontSize="24"
                                                 HorizontalOptions="Center"
                                                 HorizontalTextAlignment="Center"
                                                 Text="{Binding Icon}"
-                                                TextColor="Black"
+                                                TextColor="{StaticResource Primary}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
-                                        </Border>
-
-                                        <Label
-                                            FontSize="14"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{Binding CategoryName}"
-                                            TextColor="Black"
-                                            VerticalOptions="EndAndExpand" />
-                                        <StackLayout.GestureRecognizers>
+                                            <Label
+                                                FontSize="14"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding CategoryName}"
+                                                TextColor="{StaticResource Black}"
+                                                VerticalOptions="EndAndExpand" />
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference HomePage}, Path=BindingContext.CategoryTapCommand}" CommandParameter="{Binding .}" />
-                                        </StackLayout.GestureRecognizers>
-                                    </StackLayout>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-
                         <StackLayout
                             Margin="0,12"
                             Orientation="Horizontal"
                             Spacing="0">
                             <Label
-                                FontAttributes="Bold"
+                                Style="{StaticResource HeaderLabelStyle}"
                                 FontSize="16"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="Best Selling"
-                                TextColor="Black"
-                                VerticalOptions="Center" />
-
+                                Text="Best Selling" />
                             <Button
                                 BackgroundColor="Transparent"
                                 Command="{Binding RecommendedTapCommand}"
                                 FontSize="16"
                                 HorizontalOptions="EndAndExpand"
                                 Text="View All"
-                                TextColor="Black"
+                                TextColor="{StaticResource Primary}"
                                 VerticalOptions="Center" />
                         </StackLayout>
-
                         <CollectionView Margin="0,12" ItemsSource="{Binding BestSellingProducts}">
-
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout ItemSpacing="12" Orientation="Horizontal" />
                             </CollectionView.ItemsLayout>
-
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackLayout
-                                        Margin="0"
-                                        Background="White"
-                                        HorizontalOptions="FillAndExpand">
-                                        <Border
-                                            Padding="0"
-                                            Background="transparent"
-                                            StrokeShape="RoundRectangle 6,0,0,6"
-                                            StrokeThickness="1">
+                                    <Frame Style="{StaticResource CardFrameStyle}" Margin="0">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
                                             <Image
                                                 Aspect="AspectFit"
-                                                HeightRequest="240"
-                                                Source="{Binding ImageUrl}"
-                                                WidthRequest="165" />
-                                        </Border>
-
-                                        <StackLayout Margin="0,8,0,0">
+                                                HeightRequest="180"
+                                                WidthRequest="140"
+                                                Source="{Binding ImageUrl}" />
                                             <Label
-                                                FontSize="16"
+                                                Style="{StaticResource HeaderLabelStyle}"
                                                 HorizontalOptions="Center"
-                                                Text="{Binding Name}"
-                                                TextColor="Black"
-                                                VerticalOptions="Start" />
-
+                                                Text="{Binding Name}" />
                                             <Label
                                                 FontSize="12"
                                                 HorizontalOptions="Center"
                                                 Text="{Binding BrandName}"
                                                 TextColor="{StaticResource SecondaryTextColor}"
                                                 VerticalOptions="Start" />
-
                                             <Label
                                                 FontSize="16"
                                                 HorizontalOptions="Center"
                                                 Text="{Binding Price, StringFormat='${0:F2}'}"
-                                                TextColor="{StaticResource Primary}"
-                                                VerticalOptions="Start" />
+                                                TextColor="{StaticResource Primary}" />
                                         </StackLayout>
-                                        <StackLayout.GestureRecognizers>
+                                        <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference HomePage}, Path=BindingContext.SelectProductCommand}" CommandParameter="{Binding .}" />
-                                        </StackLayout.GestureRecognizers>
-                                    </StackLayout>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-
                         <Label
                             Margin="0,12"
                             FontAttributes="Bold"

@@ -27,14 +27,17 @@
                         <StackLayout Spacing="6">
                             <Label
                                 FontSize="16"
-                                HorizontalOptions="StartAndExpand"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
                                 Text="{Binding Name}"
                                 TextColor="Black" />
                             <Label
                                 FontSize="16"
-                                HorizontalOptions="StartAndExpand"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
                                 Text="{Binding Price}"
                                 TextColor="{StaticResource Primary}" />
+
                             <Button
                                 Margin="0,20,0,0"
                                 Padding="32,12"
