@@ -5,6 +5,20 @@ namespace Mobappg4v2.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        private string _title;
+        private bool _isBusy;
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -13,7 +27,7 @@ namespace Mobappg4v2.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value,Action onChanged = null, [CallerMemberName] string propertyName = "")
+        protected bool SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyName = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return false;

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobappg4v2.Views.SellerDashboardView"
+             Title="Seller Dashboard">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout"
+                    IconImageSource="logout.png"
+                    Command="{Binding LogoutCommand}"
+                    Order="Primary"
+                    Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <Grid RowSpacing="20" Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Store Info Card -->
+            <Frame Grid.Row="0" BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <Grid RowSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image Grid.Column="0" 
+                           Source="{Binding ProfileImage}"
+                           HeightRequest="80"
+                           WidthRequest="80"
+                           Aspect="AspectFill"/>
+                    
+                    <VerticalStackLayout Grid.Column="1" Spacing="5" Padding="10,0">
+                        <Label Text="{Binding StoreName}"
+                               FontSize="24"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding SellerName}"
+                               FontSize="16"
+                               TextColor="Gray"/>
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="{Binding Rating}"
+                                   FontSize="14"/>
+                            <Label Text="★"
+                                   TextColor="Gold"
+                                   FontSize="14"/>
+                            <Label Text="|"
+                                   TextColor="Gray"
+                                   FontSize="14"/>
+                            <Label Text="{Binding TotalSales, StringFormat='{0} Sales'}"
+                                   FontSize="14"
+                                   TextColor="Gray"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <Button Grid.Column="2"
+                            Text="Logout"
+                            BackgroundColor="Red"
+                            TextColor="White"
+                            HeightRequest="40"
+                            WidthRequest="100"
+                            Command="{Binding LogoutCommand}"
+                            VerticalOptions="Start"
+                            HorizontalOptions="End"
+                            Margin="0,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Quick Stats -->
+            <Grid Grid.Row="1" ColumnSpacing="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Frame Grid.Column="0" BorderColor="LightGray" CornerRadius="10" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Today's Sales" FontSize="12"/>
+                        <Label Text="{Binding TodaySales}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Column="1" BorderColor="LightGray" CornerRadius="10" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Pending Orders" FontSize="12"/>
+                        <Label Text="{Binding PendingOrders}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Column="2" BorderColor="LightGray" CornerRadius="10" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Total Products" FontSize="12"/>
+                        <Label Text="{Binding TotalProducts}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- Quick Actions -->
+            <Frame Grid.Row="2" BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Quick Actions" FontSize="18" FontAttributes="Bold"/>
+                    <Grid ColumnSpacing="15" RowSpacing="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Column="0" Grid.Row="0" 
+                                Text="Add Product"
+                                Command="{Binding AddProductCommand}"
+                                BackgroundColor="#007AFF"/>
+
+                        <Button Grid.Column="1" Grid.Row="0" 
+                                Text="View Orders"
+                                Command="{Binding ViewOrdersCommand}"
+                                BackgroundColor="#5856D6"/>
+
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Text="Manage Products"
+                                Command="{Binding ManageProductsCommand}"
+                                BackgroundColor="#FF2D55"/>
+
+                        <Button Grid.Column="1" Grid.Row="1" 
+                                Text="Store Settings"
+                                Command="{Binding StoreSettingsCommand}"
+                                BackgroundColor="#34C759"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Recent Orders -->
+            <Frame Grid.Row="3" BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Recent Orders" FontSize="18" FontAttributes="Bold"/>
+                    <CollectionView ItemsSource="{Binding RecentOrders}"
+                                  HeightRequest="200">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,5" Padding="10" BorderColor="LightGray">
+                                    <Grid ColumnSpacing="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                            <Label Text="{Binding OrderId}" FontSize="14" FontAttributes="Bold"/>
+                                            <Label Text="{Binding OrderDate}" FontSize="12"/>
+                                            <Label Text="{Binding Status}" FontSize="12"/>
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding Total, StringFormat='${0:F2}'}"
+                                               VerticalOptions="Center"
+                                               FontSize="16"
+                                               FontAttributes="Bold"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </ScrollView>
+</ContentPage> 

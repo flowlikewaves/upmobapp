@@ -1,196 +1,138 @@
 ﻿using Mobappg4v2.Model;
-using Mobappg4v2.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using static Mobappg4v2.Model.TrackOrderModel;
 
 namespace Mobappg4v2.ViewModel
 {
+    [QueryProperty(nameof(Order), "Order")]
     public class OrderDetailsViewModel : BaseViewModel
     {
-        private ObservableCollection<TrackOrderModel> _TrackData = [];
-        public ObservableCollection<TrackOrderModel> TrackData
+        private SellerOrderModel _order;
+        private bool _isLoaded;
+        private ObservableCollection<TrackOrderModel> _trackData;
+
+        public SellerOrderModel Order
         {
-            get => _TrackData;
-            set => SetProperty(ref _TrackData, value);
+            get => _order;
+            set
+            {
+                SetProperty(ref _order, value);
+                _ = LoadOrderDetailsAsync();
+            }
         }
 
-        private bool _IsLoaded;
         public bool IsLoaded
         {
-            get => _IsLoaded;
-            set => SetProperty(ref _IsLoaded, value);
+            get => _isLoaded;
+            set => SetProperty(ref _isLoaded, value);
         }
+
+        public ObservableCollection<TrackOrderModel> TrackData
+        {
+            get => _trackData;
+            set => SetProperty(ref _trackData, value);
+        }
+
+        public bool HasNotes => !string.IsNullOrWhiteSpace(Order?.Notes);
+
+        public ICommand UpdateStatusCommand { get; }
+        public ICommand AddNoteCommand { get; }
         public ICommand BackCommand { get; }
-        public ICommand SelectOrderCommand { get; }
-        public OrderDetailsViewModel(bool emptyGroups = false)
+
+        public OrderDetailsViewModel()
         {
-            BackCommand = new Command<object>(GoBack);
-            SelectOrderCommand = new Command<object>(TrackCommand);
-            _ = InitializeAsync();
+            Title = "Order Details";
+            TrackData = new ObservableCollection<TrackOrderModel>();
+            BackCommand = new Command(async () => await GoBack());
+            UpdateStatusCommand = new Command<string>(async (status) => await UpdateStatus(status));
+            AddNoteCommand = new Command(async () => await AddNote());
         }
-        private async Task InitializeAsync()
+
+        private async Task LoadOrderDetailsAsync()
         {
-            await PopulateDataAsync();
+            if (Order != null)
+            {
+                IsLoaded = false;
+                try
+                {
+                    Title = $"Order #{Order.OrderId}";
+                    await LoadTrackingData();
+                }
+                finally
+                {
+                    IsLoaded = true;
+                }
+            }
         }
-        private async void TrackCommand(object obj)
+
+        private async Task LoadTrackingData()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new TrackOrderView((Track)obj));
-        }
-        private async void GoBack(object obj)
-        {
-            await Application.Current.MainPage.Navigation.PopModalAsync();
-        }
-        async Task PopulateDataAsync()
-        {
+            // Simulate loading tracking data
             await Task.Delay(500);
-            //TODO: Remove Delay here and call API
-            TrackData.Add(new TrackOrderModel("Sept 23, 2018",
-            [
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$4500",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                }
-            ]));
 
-            TrackData.Add(new TrackOrderModel("Sept 23, 2018",
-            [
-                new Track
+            if (Order != null)
+            {
+                TrackData.Clear();
+                var trackList = new List<TrackOrderModel.Track>();
+                var track = new TrackOrderModel.Track
                 {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$500",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                },
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$700",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                }
-            ]));
+                    OrderId = Order.OrderId,
+                    Price = Order.TotalAmount.ToString("C"),
+                    Status = Order.Status,
+                    Images = Order.Items.Select(item => new TrackOrderModel.ImageList 
+                    { 
+                        ImageUrl = item.ProductImage 
+                    }).ToList()
+                };
+                trackList.Add(track);
 
-            TrackData.Add(new TrackOrderModel("Sept 22, 2018",
-            [
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$1500",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                    }
-                },
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$2700",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Apple.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                }
-            ]));
-
-            TrackData.Add(new TrackOrderModel("Sept 23, 2018",
-            [
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$4500",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                }
-            ]));
-
-            TrackData.Add(new TrackOrderModel("Sept 23, 2018",
-            [
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$4500",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                }
-            ]));
-
-            TrackData.Add(new TrackOrderModel("Sept 23, 2018",
-            [
-                new Track
-                {
-                    OrderId = "OD - 424923192 - N",
-                    Price = "$4500",
-                    Status = "Delivered",
-                    Images= new List<ImageList>()
-                    {
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"},
-                        new ImageList(){ImageUrl = "https://raw.githubusercontent.com/exendahal/ecommerceXF/master/eCommerce/eCommerce.Android/Resources/drawable/Icon_Bo.png"}
-                    }
-                }
-            ]));
-            IsLoaded = true;
+                TrackData.Add(new TrackOrderModel(Order.OrderDate.ToString("MMM dd, yyyy"), trackList));
+            }
         }
 
+        private async Task UpdateStatus(string status)
+        {
+            if (Order != null)
+            {
+                Order.Status = status;
+                if (status == "Shipped" && !Order.ShippedDate.HasValue)
+                {
+                    Order.ShippedDate = DateTime.Now;
+                }
+                else if (status == "Delivered" && !Order.DeliveredDate.HasValue)
+                {
+                    Order.DeliveredDate = DateTime.Now;
+                }
+
+                // TODO: Update status in database
+                await Shell.Current.DisplayAlert("Success", "Order status updated successfully", "OK");
+            }
+        }
+
+        private async Task AddNote()
+        {
+            string note = await Shell.Current.DisplayPromptAsync(
+                "Add Note",
+                "Enter a note for this order:",
+                "Save",
+                "Cancel",
+                "Type your note here...",
+                -1,
+                Keyboard.Text,
+                Order?.Notes);
+
+            if (!string.IsNullOrWhiteSpace(note))
+            {
+                Order.Notes = note;
+                OnPropertyChanged(nameof(HasNotes));
+                // TODO: Save note to database
+                await Shell.Current.DisplayAlert("Success", "Note added successfully", "OK");
+            }
+        }
+
+        private async Task GoBack()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace Mobappg4v2.ViewModel
         public TrackOrderViewModel(Track data, bool emptyGroups = false)
         {
             TrackOrderData = data;
-            BackCommand = new Command<object>(GoBack);
+            BackCommand = new Command<object>(async (obj) => await GoBack(obj));
             _ = InitializeAsync();
         }
 
@@ -53,7 +53,7 @@ namespace Mobappg4v2.ViewModel
             IsLoaded = true;
         }
 
-        private async void GoBack(object obj)
+        private async Task GoBack(object obj)
         {
             await Application.Current.MainPage.Navigation.PopModalAsync();
         }

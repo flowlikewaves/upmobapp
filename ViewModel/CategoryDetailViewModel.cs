@@ -39,8 +39,8 @@ namespace Mobappg4v2.ViewModel
         public ICommand SelectProductCommand { get; }
         public CategoryDetailViewModel(CategoriesModel data)
         {
-            BackCommand = new Command(GoBack);
-            SelectProductCommand = new Command<ProductListModel>(SelectProduct);
+            BackCommand = new Command(async () => await GoBack());
+            SelectProductCommand = new Command<ProductListModel>(async (product) => await SelectProduct(product));
             CategoryModel = new CategoriesModel();
             CategoryModel = data;
             _ = InitializeAsync();
@@ -71,11 +71,11 @@ namespace Mobappg4v2.ViewModel
             IsLoaded = true;
         }
 
-        private async void GoBack()
+        private async Task GoBack()
         {
             await Application.Current.MainPage.Navigation.PopModalAsync();
         }
-        private async void SelectProduct(ProductListModel product)
+        private async Task SelectProduct(ProductListModel product)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new ProductDetailsView());
         }

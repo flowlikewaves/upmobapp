@@ -31,7 +31,7 @@ namespace Mobappg4v2.ViewModel
         public ICommand SelectMenuCommand { get; }
         public BrandDetailViewModel()
         {
-            SelectProductCommand = new Command<ProductListModel>(SelectProduct);
+            SelectProductCommand = new Command<ProductListModel>(async (product) => await SelectProduct(product));
             SelectMenuCommand = new Command<TabPageModel>(SelectMenu);
             _ = InitializeAsync();
         }
@@ -40,7 +40,8 @@ namespace Mobappg4v2.ViewModel
         {
             await PopulateDataAsync();
         }
-        private async void SelectProduct(ProductListModel obj)
+
+        private async Task SelectProduct(ProductListModel product)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new ProductDetailsView());
         }
@@ -58,7 +59,6 @@ namespace Mobappg4v2.ViewModel
                     item.IsSelected = false;
                 }
             }
-
         }
         async Task PopulateDataAsync()
         {

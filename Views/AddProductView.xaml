@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobappg4v2.Views.AddProductView"
+             Title="Add Product">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Basic Information -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Basic Information" 
+                           FontSize="18" 
+                           FontAttributes="Bold"/>
+
+                    <Entry Placeholder="Product Name"
+                           Text="{Binding Name}"/>
+
+                    <Editor Placeholder="Product Description"
+                            Text="{Binding Description}"
+                            HeightRequest="100"
+                            AutoSize="TextChanges"/>
+
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Entry Grid.Column="0" 
+                               Placeholder="Price"
+                               Text="{Binding Price}"
+                               Keyboard="Numeric"/>
+
+                        <Entry Grid.Column="1" 
+                               Placeholder="Stock Quantity"
+                               Text="{Binding StockQuantity}"
+                               Keyboard="Numeric"/>
+                    </Grid>
+
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Entry Grid.Column="0" 
+                               Placeholder="Category"
+                               Text="{Binding Category}"/>
+
+                        <Entry Grid.Column="1" 
+                               Placeholder="Brand"
+                               Text="{Binding Brand}"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Additional Details -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Additional Details" 
+                           FontSize="18" 
+                           FontAttributes="Bold"/>
+
+                    <Entry Placeholder="SKU"
+                           Text="{Binding SKU}"/>
+
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Entry Grid.Column="0" 
+                               Placeholder="Weight"
+                               Text="{Binding Weight}"
+                               Keyboard="Numeric"/>
+
+                        <Picker Grid.Column="1"
+                                Title="Weight Unit"
+                                SelectedItem="{Binding WeightUnit}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>kg</x:String>
+                                    <x:String>g</x:String>
+                                    <x:String>lb</x:String>
+                                    <x:String>oz</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+
+                    <Entry Placeholder="Discount Percentage"
+                           Text="{Binding DiscountPercentage}"
+                           Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Images -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Product Images" 
+                           FontSize="18" 
+                           FontAttributes="Bold"/>
+
+                    <Button Text="Add Images"
+                            Command="{Binding AddImagesCommand}"
+                            BackgroundColor="#007AFF"/>
+
+                    <CollectionView ItemsSource="{Binding Images}"
+                                  HeightRequest="120">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" 
+                                             ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="0" 
+                                       BorderColor="LightGray"
+                                       HeightRequest="100"
+                                       WidthRequest="100">
+                                    <Image Source="{Binding .}"
+                                           Aspect="AspectFill"/>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <Grid ColumnSpacing="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="Gray"/>
+
+                <Button Grid.Column="1"
+                        Text="Save Product"
+                        Command="{Binding SaveProductCommand}"
+                        BackgroundColor="#34C759"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage> 

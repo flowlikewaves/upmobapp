@@ -33,7 +33,7 @@ namespace Mobappg4v2.ViewModel
         public ICommand SelectMenuCommand { get; }
         public ProfileViewModel()
         {
-            SelectMenuCommand = new Command<MenuItems>(SelectMenu);
+            SelectMenuCommand = new Command<MenuItems>(async (item) => await SelectMenu(item));
             Email = UserSession.Email ?? "user@email.com";
             _ = InitializeAsync();
         }
@@ -56,9 +56,9 @@ namespace Mobappg4v2.ViewModel
             IsLoaded = true;
         }
 
-        private async void SelectMenu(MenuItems item)
+        private async Task SelectMenu(MenuItems item)
         {
-            if (item.TargetType !=null )
+            if (item.TargetType != null)
             {
                 if (item.TargetType == typeof(LoginView))
                 {
@@ -71,7 +71,6 @@ namespace Mobappg4v2.ViewModel
                     await Application.Current.MainPage.Navigation.PushAsync(((Page)Activator.CreateInstance(item.TargetType)));
                 }
             }
-            
         }       
     }
 }

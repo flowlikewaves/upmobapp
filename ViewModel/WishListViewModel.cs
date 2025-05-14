@@ -23,11 +23,11 @@ namespace Mobappg4v2.ViewModel
         public ICommand SelectProductCommand { get; }
         public WishListViewModel()
         {
-            SelectProductCommand = new Command<ProductListModel>(SelectProduct);
+            SelectProductCommand = new Command<ProductListModel>(async (model) => await SelectProduct(model));
             _ = InitializeAsync();
         }
 
-        private async void SelectProduct(ProductListModel model)
+        private async Task SelectProduct(ProductListModel model)
         {
             if (model.IsAvailable)
             {

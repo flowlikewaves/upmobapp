@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Mobappg4v2.Views.SellerRegistrationView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:Mobappg4v2.ViewModel"
+    Title="Seller Registration">
+
+    <ContentPage.BindingContext>
+        <vm:SellerRegistrationViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18,30" Spacing="18" BackgroundColor="{StaticResource MMPrimaryBackground}">
+            <Label
+                Style="{StaticResource HeaderLabelStyle}"
+                FontSize="24"
+                HorizontalOptions="Start"
+                Text="Create Seller Account"
+                TextColor="{StaticResource MMHeaderBrown}" />
+
+            <Frame Style="{StaticResource CardFrameStyle}" Margin="0,20,0,0">
+                <VerticalStackLayout Spacing="20">
+                    <!-- Basic Information -->
+                    <Label Text="Basic Information" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource MMHeaderBrown}" />
+                    
+                    <StackLayout Spacing="0">
+                        <Label Text="Email" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="16" Placeholder="Enter Email" Text="{Binding Email}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Password" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="16" IsPassword="True" Placeholder="Enter Password" Text="{Binding Password}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Confirm Password" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="16" IsPassword="True" Placeholder="Confirm Password" Text="{Binding ConfirmPassword}" />
+                    </StackLayout>
+
+                    <!-- Store Information -->
+                    <Label Text="Store Information" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource MMHeaderBrown}" />
+                    
+                    <StackLayout Spacing="0">
+                        <Label Text="Store Name" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="16" Placeholder="Enter Store Name" Text="{Binding StoreName}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Store Description" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Editor FontSize="16" 
+                                Placeholder="Enter Store Description" 
+                                Text="{Binding StoreDescription}"
+                                HeightRequest="100"
+                                AutoSize="TextChanges" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Business Type" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Picker FontSize="16" 
+                                ItemsSource="{Binding BusinessTypes}"
+                                SelectedItem="{Binding SelectedBusinessType}" />
+                    </StackLayout>
+
+                    <!-- Contact Information -->
+                    <Label Text="Contact Information" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource MMHeaderBrown}" />
+                    
+                    <StackLayout Spacing="0">
+                        <Label Text="Phone Number" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Entry FontSize="16" Placeholder="Enter Phone Number" Text="{Binding PhoneNumber}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Address" FontSize="14" TextColor="{StaticResource MMHeaderBrown}" />
+                        <Editor FontSize="16" 
+                                Placeholder="Enter Business Address" 
+                                Text="{Binding Address}"
+                                HeightRequest="80"
+                                AutoSize="TextChanges" />
+                    </StackLayout>
+
+                    <!-- Terms and Conditions -->
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <CheckBox IsChecked="{Binding AcceptTerms}" />
+                        <Label Text="I accept the Terms and Conditions" 
+                               FontSize="14"
+                               TextColor="{StaticResource MMHeaderBrown}"
+                               VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <!-- Buttons -->
+                    <Button
+                        Command="{Binding RegisterCommand}"
+                        Style="{StaticResource AccentButtonStyle}"
+                        IsEnabled="{Binding CanRegister}"
+                        Text="CREATE ACCOUNT" />
+
+                    <Button
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource TextButtonStyle}"
+                        Text="Already have an account? Sign In"
+                        TextColor="{StaticResource MMAccentGreen}" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage> 

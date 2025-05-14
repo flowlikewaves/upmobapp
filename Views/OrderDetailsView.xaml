@@ -1,156 +1,182 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Mobappg4v2.Views.OrderDetailsView"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:Mobappg4v2.Converters"
-    xmlns:vm="clr-namespace:Mobappg4v2.ViewModel"
-    x:Name="OrderDetails"
     Title="Order Details">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:InverseBooleanConverter x:Key="InverseBoolConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}">
-        <StackLayout Margin="6,12" IsVisible="{Binding IsLoaded}">
-            <CollectionView
-                Margin="18,0"
-                IsGrouped="True"
-                ItemsSource="{Binding TrackData}"
-                VerticalOptions="FillAndExpand">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12" />
-                </CollectionView.ItemsLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Order Header -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <Grid RowDefinitions="Auto,Auto" RowSpacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="{Binding Order.OrderId}"
+                               FontSize="20"
+                               FontAttributes="Bold"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Order.OrderDate, StringFormat='{0:MMM dd, yyyy HH:mm}'}"
+                               TextColor="Gray"/>
+                    </Grid>
+                    <Frame Grid.Row="1"
+                           Padding="8,4"
+                           BackgroundColor="{Binding Order.Status, Converter={StaticResource StatusToColorConverter}}"
+                           HorizontalOptions="Start"
+                           CornerRadius="5">
+                        <Label Text="{Binding Order.Status}"
+                               TextColor="White"
+                               FontSize="12"/>
+                    </Frame>
+                </Grid>
+            </Frame>
+
+            <!-- Customer Information -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Customer Information"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    
+                    <Grid RowDefinitions="Auto,Auto" RowSpacing="10">
+                        <VerticalStackLayout Grid.Row="0" Spacing="5">
+                            <Label Text="Name" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.CustomerName}"/>
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Row="1" Spacing="5">
+                            <Label Text="Shipping Address" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.ShippingAddress}"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Payment Information -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Payment Information"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" 
+                          ColumnSpacing="15" RowSpacing="15">
+                        <VerticalStackLayout Grid.Column="0" Grid.Row="0" Spacing="5">
+                            <Label Text="Payment Method" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.PaymentMethod}"/>
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Column="1" Grid.Row="0" Spacing="5">
+                            <Label Text="Payment Status" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.PaymentStatus}"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="0" Grid.Row="1" Spacing="5">
+                            <Label Text="Total Amount" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.TotalAmount, StringFormat='${0:F2}'}"
+                                   TextColor="#007AFF"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Shipping Information -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Shipping Information"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" 
+                          ColumnSpacing="15" RowSpacing="15">
+                        <VerticalStackLayout Grid.Column="0" Grid.Row="0" 
+                                           Grid.ColumnSpan="2" Spacing="5">
+                            <Label Text="Tracking Number" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.TrackingNumber}"/>
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Column="0" Grid.Row="1" Spacing="5">
+                            <Label Text="Shipped Date" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.ShippedDate, StringFormat='{0:MMM dd, yyyy}'}"/>
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Column="1" Grid.Row="1" Spacing="5">
+                            <Label Text="Delivered Date" FontAttributes="Bold"/>
+                            <Label Text="{Binding Order.DeliveredDate, StringFormat='{0:MMM dd, yyyy}'}"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Order Items -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Order Items"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    
+                    <CollectionView ItemsSource="{Binding Order.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Style="{StaticResource CardFrameStyle}" Margin="0,0,0,12">
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout HorizontalOptions="StartAndExpand">
-                                        <Label
-                                            Style="{StaticResource HeaderLabelStyle}"
-                                            FontSize="16"
-                                            HorizontalOptions="StartAndExpand"
-                                            Text="{Binding OrderId}" />
-                                        <Label
-                                            Margin="0,5"
-                                            FontSize="14"
-                                            HorizontalOptions="StartAndExpand"
-                                            Text="{Binding Price}"
-                                            TextColor="{StaticResource Primary}" />
-                                        <Frame
-                                            Margin="0,16"
+                                <Grid Padding="0,10" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                                    <!-- Product Image -->
+                                    <Frame Grid.Column="0"
+                                           HeightRequest="60"
+                                           WidthRequest="60"
                                             Padding="0"
-                                            BackgroundColor="{StaticResource Primary}"
-                                            BorderColor="Transparent"
-                                            CornerRadius="2"
-                                            HasShadow="False"
                                             IsClippedToBounds="True">
-                                            <Label
-                                                Margin="12,10,12,10"
-                                                FontSize="14"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding Status}"
-                                                TextColor="White"
-                                                VerticalOptions="CenterAndExpand"
-                                                VerticalTextAlignment="Center" />
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Reference OrderDetails}, Path=BindingContext.SelectOrderCommand}" CommandParameter="{Binding .}" />
-                                            </Frame.GestureRecognizers>
+                                        <Image Source="{Binding ProductImage}"
+                                               Aspect="AspectFill"/>
                                         </Frame>
-                                    </StackLayout>
-                                    <Grid
-                                        ColumnSpacing="4"
-                                        HorizontalOptions="EndAndExpand"
-                                        RowSpacing="4">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50" />
-                                            <RowDefinition Height="50" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="50" />
-                                            <ColumnDefinition Width="50" />
-                                        </Grid.ColumnDefinitions>
-                                        <Border
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            Padding="4"
-                                            Background="Transparent"
-                                            IsVisible="{Binding ImageOneVisibility}"
-                                            Stroke="{StaticResource Gray200}"
-                                            StrokeShape="RoundRectangle 5,5,5,5"
-                                            StrokeThickness="1">
-                                            <Image Aspect="AspectFit" Source="{Binding ImageOneUrl}" />
-                                        </Border>
-                                        <Border
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            Padding="4"
-                                            Background="Transparent"
-                                            IsVisible="{Binding ImageTwoVisibility}"
-                                            Stroke="{StaticResource Gray200}"
-                                            StrokeShape="RoundRectangle 5,5,5,5"
-                                            StrokeThickness="1">
-                                            <Image
-                                                Aspect="AspectFit"
-                                                IsVisible="{Binding ImageTwoVisibility}"
-                                                Source="{Binding ImageTwoUrl}" />
-                                        </Border>
-                                        <Border
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Padding="4"
-                                            Background="Transparent"
-                                            IsVisible="{Binding ImageThreeVisibility}"
-                                            Stroke="{StaticResource Gray200}"
-                                            StrokeShape="RoundRectangle 5,5,5,5"
-                                            StrokeThickness="1">
-                                            <Image
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                Aspect="AspectFit"
-                                                Source="{Binding ImageThreeUrl}" />
-                                        </Border>
-                                        <Border
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            Padding="4"
-                                            Background="Transparent"
-                                            IsVisible="{Binding ImageMoreVisibility}"
-                                            Stroke="{StaticResource Gray200}"
-                                            StrokeShape="RoundRectangle 5,5,5,5"
-                                            StrokeThickness="1">
-                                            <Label
-                                                FontSize="14"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding RemainingImages, StringFormat='+{0}'}"
-                                                TextColor="{StaticResource Black}"
-                                                VerticalOptions="CenterAndExpand" />
-                                        </Border>
+
+                                    <!-- Product Details -->
+                                    <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                        <Label Text="{Binding ProductName}"
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding SKU}"
+                                               TextColor="Gray"
+                                               FontSize="12"/>
+                                        <Label Text="{Binding UnitPrice, StringFormat='${0:F2}'}"
+                                               TextColor="#007AFF"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- Quantity and Subtotal -->
+                                    <VerticalStackLayout Grid.Column="2" 
+                                                       HorizontalOptions="End"
+                                                       Spacing="5">
+                                        <Label Text="{Binding Quantity, StringFormat='Qty: {0}'}"
+                                               HorizontalOptions="End"/>
+                                        <Label Text="{Binding Subtotal, StringFormat='${0:F2}'}"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="End"/>
+                                    </VerticalStackLayout>
                                     </Grid>
-                                </StackLayout>
-                            </StackLayout>
-                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <Label
-                            Style="{StaticResource HeaderLabelStyle}"
-                            FontSize="14"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding Date}" />
-                    </DataTemplate>
-                </CollectionView.GroupHeaderTemplate>
             </CollectionView>
-        </StackLayout>
-        <ActivityIndicator
-            HeightRequest="45"
-            HorizontalOptions="Center"
-            IsRunning="{Binding IsLoaded, Converter={StaticResource InverseBoolConverter}}"
-            VerticalOptions="Center"
-            WidthRequest="45"
-            Color="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Notes -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15"
+                   IsVisible="{Binding HasNotes}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Notes"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding Order.Notes}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                <Button Grid.Column="0"
+                        Text="Update Status"
+                        Command="{Binding UpdateStatusCommand}"
+                        BackgroundColor="#34C759"/>
+                <Button Grid.Column="1"
+                        Text="Add Note"
+                        Command="{Binding AddNoteCommand}"
+                        BackgroundColor="#007AFF"/>
     </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

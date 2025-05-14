@@ -1,60 +1,31 @@
-﻿using Mobappg4v2.ViewModel;
+﻿using System;
+using System.Collections.Generic;
+using Mobappg4v2.ViewModel;
 using static Mobappg4v2.Model.TrackOrderModel;
 
 namespace Mobappg4v2.Model
 {
-    public class TrackOrderModel : List<Track>
+    public class TrackOrderModel
     {
-        public string Date { get; private set; }
+        public string OrderDate { get; set; }
+        public List<Track> TrackList { get; set; }
 
-        public TrackOrderModel(string date, List<Track> tracks) : base(tracks)
+        public TrackOrderModel(string orderDate, List<Track> trackList)
         {
-            Date = date;
+            OrderDate = orderDate;
+            TrackList = trackList;
         }
 
-        public override string ToString()
+        public class Track
         {
-            return Date;
-        }
+            public string OrderId { get; set; }
+            public string Price { get; set; }
+            public string Status { get; set; }
+            public List<ImageList> Images { get; set; }
 
-        public class Track : BaseViewModel
-        {
-            private string _OrderId;
-            public string OrderId
+            public Track()
             {
-                get => _OrderId;
-                set => SetProperty(ref _OrderId, value);
-            }
-            private string _Price;
-            public string Price
-            {
-                get => _Price;
-                set => SetProperty(ref _Price, value);
-            }
-            private string _Status;
-            public string Status
-            {
-                get => _Status;
-                set => SetProperty(ref _Status, value);
-            }
-            private List<ImageList> _Images = [];
-            public List<ImageList> Images
-            {
-                get => _Images;
-                set => SetProperty(ref _Images, value);
-            }
-            public int NumberOfItems { get { return Images.Count(); } }
-            public bool ImageOneVisibility { get { return NumberOfItems >= 1; } }
-            public string ImageOneUrl { get { return Images[0].ImageUrl; } }
-            public bool ImageTwoVisibility { get { return NumberOfItems >= 2; } }
-            public string ImageTwoUrl { get { return Images[1].ImageUrl; } }
-            public bool ImageThreeVisibility { get { return NumberOfItems >= 3; } }
-            public string ImageThreeUrl { get { return Images[2].ImageUrl; } }
-            public bool ImageMoreVisibility { get { return NumberOfItems >= 4; } }
-            public int RemainingImages { get { return NumberOfItems - 3; } }
-            public override string ToString()
-            {
-                return OrderId;
+                Images = new List<ImageList>();
             }
         }
 

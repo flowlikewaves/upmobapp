@@ -43,10 +43,10 @@ namespace Mobappg4v2.ViewModel
         public ICommand OpenCameraCommand { get; }
         public HomePageViewModel()
         {
-            SelectProductCommand = new Command<ProductListModel>(SelectProduct);
-            RecommendedTapCommand = new Command<object>(SelectRecommend);
-            CategoryTapCommand = new Command<CategoriesModel>(SelectCategory);
-            BrandTapCommand = new Command<ProductListModel>(SelectBrand);
+            SelectProductCommand = new Command<ProductListModel>(async (product) => await SelectProduct(product));
+            RecommendedTapCommand = new Command<object>(async (obj) => await SelectRecommend(obj));
+            CategoryTapCommand = new Command<CategoriesModel>(async (category) => await SelectCategory(category));
+            BrandTapCommand = new Command<ProductListModel>(async (product) => await SelectBrand(product));
             _ = InitializeAsync();
         }
         private async Task InitializeAsync()
@@ -74,20 +74,22 @@ namespace Mobappg4v2.ViewModel
             IsLoaded = true;
         }
 
-        private async void SelectBrand(ProductListModel product)
+        private async Task SelectBrand(ProductListModel product)
         {
             await Application.Current.MainPage.Navigation.PushAsync(new BrandDetailView());
         }
-        private async void SelectProduct(ProductListModel product)
+
+        private async Task SelectProduct(ProductListModel product)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new ProductDetailsView());
         }
 
-        private async void SelectCategory(CategoriesModel category)
+        private async Task SelectCategory(CategoriesModel category)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new CategoryDetailView(category));
         }
-        private async void SelectRecommend(object product)
+
+        private async Task SelectRecommend(object product)
         {
             await Application.Current.MainPage.Navigation.PushAsync(new AllProductView());
         }

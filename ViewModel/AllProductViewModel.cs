@@ -23,7 +23,7 @@ namespace Mobappg4v2.ViewModel
         public ICommand SelectProductCommand { get; }
         public AllProductViewModel()
         {
-            SelectProductCommand = new Command<ProductListModel>(SelectProduct);
+            SelectProductCommand = new Command<ProductListModel>(async (product) => await SelectProduct(product));
             _ = InitializeAsync();
         }
 
@@ -47,7 +47,7 @@ namespace Mobappg4v2.ViewModel
             IsLoaded = true;
         }
 
-        private async void SelectProduct(ProductListModel product)
+        private async Task SelectProduct(ProductListModel product)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new ProductDetailsView());
         }        

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Mobappg4v2.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Mobappg4v2"
+    xmlns:views="clr-namespace:Mobappg4v2.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+    <!-- Login -->
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginView}"
+        Route="login" />
+
+    <!-- Seller Section -->
+    <TabBar Route="seller">
+        <ShellContent
+            Title="Dashboard"
+            ContentTemplate="{DataTemplate views:SellerDashboardView}"
+            Route="dashboard" />
+    </TabBar>
+
+    <!-- Customer Section -->
+    <TabBar Route="customer">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:HomePageView}"
+            Route="home" />
+        <ShellContent
+            Title="Cart"
+            ContentTemplate="{DataTemplate views:CartView}"
+            Route="cart" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ProfileView}"
+            Route="profile" />
+    </TabBar>
+
+</Shell> 
